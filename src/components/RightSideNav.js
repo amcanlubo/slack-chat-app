@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChatFeed = () => {
+const RightSideNav = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const ChatFeed = () => {
     )
 }
 
-export default ChatFeed
+export default RightSideNav
