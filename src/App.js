@@ -1,11 +1,15 @@
-import './App.css';
+import React from 'react'
+import Home from './components/Home'
 
-function App() {
+
+
+const App = () => {
   return (
     <div>
-     CHAT APP
+      <Home />        
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
