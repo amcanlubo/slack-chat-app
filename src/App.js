@@ -5,6 +5,7 @@ import axios from 'axios'
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Database from './components/Database';
+import ChatFeed from './components/ChatFeed';
 
 const App = () => {
   
@@ -22,6 +23,9 @@ const App = () => {
         </Route>
         <Route path="/database">
           <Database />
+        </Route>
+        <Route path="/chatfeed">
+          <ChatFeed />
         </Route>
         <Route path="/">
           <Login />
