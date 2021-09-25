@@ -113,6 +113,10 @@ const ChatFeed = () => {
 <RightSideNav />
 </div>
 </div>
+
+        <div>
+            <LeftSideNav userHeaders={userHeaders}/>
+        </div>
 </>
     )
 }
