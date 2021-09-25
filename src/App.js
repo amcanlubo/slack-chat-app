@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import Store, { Context } from './components/Store'
+import React from 'react'
+import Store from './components/Store'
 import { Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 //components

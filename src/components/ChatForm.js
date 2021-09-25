@@ -3,17 +3,20 @@ import { Context } from './Store';
 import axios from 'axios'
 
 const ChatForm = ({ userHeaders }) => {
-    
+
     const [state, dispatch] = useContext(Context);
 
+    useEffect(() => {
+        axios.get(`${axios.defaults.baseURL}/api/v1/channels/3`, userHeaders, { 'id': state.ChannelID })
+            .then((response) => {
+                
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    })
 
-    axios.get(`${axios.defaults.baseURL}/api/v1/channels/3`, userHeaders, { 'id': state.ChannelID })
-        .then((response) => {
-            console.log(response)
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+
     return (
         <div className='container h-full flex flex-col justify-between'>
             {state.ChannelID}

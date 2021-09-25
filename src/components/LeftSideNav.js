@@ -13,9 +13,12 @@ const LeftSideNav = ({ userHeaders }) => {
     const [state, dispatch] = useContext(Context);
 
     const updateChatForm = (channelID) => {
-        dispatch({ type: 'UPDATE_CHANNELID',payload: channelIDState })
         setChannelIDState(channelID)
     }
+
+    useEffect(() => {
+        dispatch({ type: 'UPDATE_CHANNELID',payload: channelIDState })
+    }, [channelIDState])
 
     const getChannelNames = () => {
 
