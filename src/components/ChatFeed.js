@@ -3,6 +3,7 @@ import { useLocation } from 'react-router'
 import LeftSideNav from './LeftSideNav'
 import RightSideNav from './RightSideNav'
 import TopNav from './TopNav'
+import ChatForm from './ChatForm'
 import image from './image.jpg'
 import image2 from './jisoo.jpg'
 
@@ -18,7 +19,8 @@ const ChatFeed = () => {
     <TopNav />
     <div className="flex w-full pt-10">
     <LeftSideNav userHeaders={userHeaders} />
-    <div></div>
+    <ChatForm userHeaders={userHeaders}/>
+    {/* <div></div>
     <div className="w-100 flex-1 p:2 sm:p-6 justify-between flex flex-col">
     <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
       <div className="flex items-center space-x-4">
@@ -108,7 +110,7 @@ const ChatFeed = () => {
          </div>
       </div>
    </div>
-</div>
+</div> */}
 
 <RightSideNav />
 </div>

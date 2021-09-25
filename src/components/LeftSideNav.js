@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Context } from './Store'
 import axios from 'axios'
 
 const LeftSideNav = ({ userHeaders }) => {
@@ -8,6 +8,14 @@ const LeftSideNav = ({ userHeaders }) => {
 
     const [channels, setChannels] = useState([])
     const [updateChannelList, setUpdateChannelList] = useState(true)
+    const [channelIDState,setChannelIDState] = useState('')
+
+    const [state, dispatch] = useContext(Context);
+
+    const updateChatForm = (channelID) => {
+        dispatch({ type: 'UPDATE_CHANNELID',payload: channelIDState })
+        setChannelIDState(channelID)
+    }
 
     const getChannelNames = () => {
 
@@ -16,7 +24,7 @@ const LeftSideNav = ({ userHeaders }) => {
         axios.get(`${url}/api/v1/channels`, userHeaders)
             .then((response) => {
                 if (response.data.errors) return null;
-                response.data.data.map((channel) => setChannels((channels) => [...channels, channel.name]))
+                response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
             })
             .catch((error) => {
                 console.log(error);
@@ -29,7 +37,7 @@ const LeftSideNav = ({ userHeaders }) => {
 
     const addChannel = () => {
         axios.post(`${url}/api/v1/channels`, {
-            "name": "test#09",
+            "name": "test#12",
             'user_ids': ['sean1@gmail.com', 'sean@gmail.com'],
         }, userHeaders)
             .then(() => {
@@ -40,15 +48,13 @@ const LeftSideNav = ({ userHeaders }) => {
     }
 
     return (
-        // <div>
-        //     <div className="flex-none w-56 h-full flex-col bg-primary">
-        //     <div className="flex-col justify-center">
-        //         <CreateChannel />
-        //     </div>
         <div className="relative min-h-screen flex">
             <div className="bg-primary text-secondary w-64">
                 {channels.map((channel) => (
-                    <p>{channel}</p>
+                    <>
+                        <br />
+                        <button onClick={() => { updateChatForm(channel.id) }}>{channel.name}</button>
+                    </>
                 ))}
                 <br />
                 <button onClick={() => { addChannel() }}>Add Channel</button>

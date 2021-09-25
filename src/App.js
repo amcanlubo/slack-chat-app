@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import Store, { Context } from './components/Store'
 import { Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 //components
@@ -13,7 +14,7 @@ const App = () => {
 
   return (
     <div className='flex h-screen'>
-      
+      <Store>
       <Switch>
         <Route path="/login">
           <Login />
@@ -31,6 +32,7 @@ const App = () => {
           <Login />
         </Route>
       </Switch>
+      </Store>
     </div>
   )
 }

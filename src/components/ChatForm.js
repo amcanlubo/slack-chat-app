@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { Context } from './Store';
+import axios from 'axios'
 
-const ChatForm = () => {
+const ChatForm = ({ userHeaders }) => {
+    
+    const [state, dispatch] = useContext(Context);
+
+
+    axios.get(`${axios.defaults.baseURL}/api/v1/channels/3`, userHeaders, { 'id': state.ChannelID })
+        .then((response) => {
+            console.log(response)
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     return (
         <div>
-        <form>
+            {state.ChannelID}
+            {/* <form>
         <input
             className="message-input"
             placeholder="Send a message..."
@@ -13,7 +27,7 @@ const ChatForm = () => {
             // onSubmit={handleSubmit}
         />    
         <button type="submit" className="send-button">SEND</button>
-        </form>
+        </form> */}
         </div>
     )
 }
