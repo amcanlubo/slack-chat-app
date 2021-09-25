@@ -15,11 +15,13 @@ const Login = () => {
     const handleLogin = (e) => {
 
         e.preventDefault()
+        
         const userData = {
             email: signinEmailRef.current.value,
             password: signinPasswordRef.current.value,
         }
 
+        
         axios.post(`${url}/api/v1/auth/sign_in`, userData)
             .then((data) => {
                 const { headers } = data
@@ -27,8 +29,6 @@ const Login = () => {
                     pathname: '/chatfeed',
                     state:{ headers }
                 })
-
-                alert("You are logged in.");
             })
             .catch((error) => alert(error));
     }

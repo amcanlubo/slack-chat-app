@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router'
+import LeftSideNav from './LeftSideNav'
 
 
 const ChatFeed = () => {
@@ -9,7 +10,7 @@ const ChatFeed = () => {
 
     return (
         <div>
-            
+            <LeftSideNav userHeaders={userHeaders}/>
         </div>
     )
 }

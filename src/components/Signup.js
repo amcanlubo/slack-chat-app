@@ -1,5 +1,4 @@
 import React, { useRef } from 'react'
-import { registerUser } from '../API/fetchPost'
 import axios from 'axios'
 
 
