@@ -40,6 +40,11 @@ const LeftSideNav = ({ userHeaders }) => {
     }
 
     return (
+        // <div>
+        //     <div className="flex-none w-56 h-full flex-col bg-primary">
+        //     <div className="flex-col justify-center">
+        //         <CreateChannel />
+        //     </div>
         <div className="relative min-h-screen flex">
             <div className="bg-primary text-secondary w-64">
                 {channels.map((channel) => (

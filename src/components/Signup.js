@@ -20,24 +20,11 @@ function Signup() {
             .then((result) => {
                 console.log(result)
                 console.log(data)
+                alert("You are registered.");
             })
-            .catch((error) => console.log(error));
-
-        // registerUser(data)
-        //     .then((result) => {
-        //     if (result.status === "error") {
-        //         alert(result.errors.full_messages);
-        //     } else {
-        //         // console.log(data)
-        //         console.log(result)
-        //         alert("Account created.");
-        //     }
-        //     emailRef.current.value =''
-        //     passwordRef.current.value=''
-        //     confirmpasswordRef.current.value=''
-        //     })
-        //     .catch((error) => console.log(error));
+            .catch((error) => console.error(error));
     }
+
 
     return (
         <div className="container w-full max-w-xs absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

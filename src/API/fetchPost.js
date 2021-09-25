@@ -14,7 +14,6 @@
 //     .catch(error => {
 //         console.log(error)
 //     })
-
 // }
 
   export const loginUser = (email, password) => {
