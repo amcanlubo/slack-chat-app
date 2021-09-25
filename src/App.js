@@ -13,7 +13,7 @@ const App = () => {
   axios.defaults.baseURL = 'https://slackapi.avionschool.com/';
 
   return (
-    <div className='flex h-screen'>
+    <div className='w-full flex h-screen'>
       <Store>
       <Switch>
         <Route path="/login">

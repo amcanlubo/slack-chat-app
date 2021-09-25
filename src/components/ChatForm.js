@@ -15,19 +15,19 @@ const ChatForm = ({ userHeaders }) => {
             console.log(error);
         })
     return (
-        <div>
+        <div className='container h-full flex flex-col justify-between'>
             {state.ChannelID}
-            {/* <form>
-        <input
-            className="message-input"
-            placeholder="Send a message..."
-            type='text'
-            // value={value}
-            // onChange={handleChange}
-            // onSubmit={handleSubmit}
-        />    
-        <button type="submit" className="send-button">SEND</button>
-        </form> */}
+        <form>
+            <input
+                className="message-input"
+                placeholder="Send a message..."
+                type='text'
+                // value={value}
+                // onChange={handleChange}
+                // onSubmit={handleSubmit}
+            />    
+            <button type="submit" className="send-button">SEND</button>
+        </form>
         </div>
     )
 }

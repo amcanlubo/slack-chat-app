@@ -19,8 +19,12 @@ function Signup() {
         axios.post(`${url}/api/v1/auth/`, data)
             .then((result) => {
                 console.log(result)
-                console.log(data)
+                // console.log(data)
                 alert("You are registered.");
+
+                emailRef.current.value=''
+                passwordRef.current.value=''
+                confirmpasswordRef.current.value=''
             })
             .catch((error) => console.error(error));
     }
