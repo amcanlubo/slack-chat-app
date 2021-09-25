@@ -1,5 +1,6 @@
 const Reducer = (state,action) => {
     switch(action.type){
+        
         case 'UPDATE_CHANNELID':
             return{
                 ...state,
