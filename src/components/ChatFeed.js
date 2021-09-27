@@ -4,8 +4,7 @@ import LeftSideNav from './LeftSideNav'
 import RightSideNav from './RightSideNav'
 import TopNav from './TopNav'
 import ChatForm from './ChatForm'
-import image from './image.jpg'
-import image2 from './jisoo.jpg'
+import axios from 'axios'
 
 
 const ChatFeed = () => {
@@ -13,6 +12,7 @@ const ChatFeed = () => {
     let location = useLocation()
     let userHeaders = location.state
 
+     
     return (
 <>
 <div className='container flex h-screen w-full'>
@@ -22,9 +22,10 @@ const ChatFeed = () => {
     <div className="w-100 flex-1 p:2 sm:p-6 justify-between flex flex-col">
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
          <ChatForm userHeaders={userHeaders}/>
+
       </div>
     </div>
-      <RightSideNav />
+      <RightSideNav userHeaders={userHeaders}  />
       </div>
 </div>      
 </>

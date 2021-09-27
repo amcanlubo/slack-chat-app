@@ -44,7 +44,7 @@ const LeftSideNav = ({ userHeaders }) => {
             // "name": "test#12",
             // 'user_ids': ['sean1@gmail.com', 'sean@gmail.com'],
             "name": nameRef.current.value,
-            'user_ids': ['amc@email.com', 'sean@gmail.com', 'ahree00@test.com'], //get from session
+            'user_ids': ['sean@gmail.com', 'ahree00@test.com'], //get from session
         }, userHeaders)
             .then(() => {
                 updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
@@ -61,7 +61,7 @@ const LeftSideNav = ({ userHeaders }) => {
                 <div>
                     <input className='w-40' ref={nameRef} type='text'/>
                     {/* <button onClick={() => { addChannel() }}>+ADD</button> */}
-                    <button onClick={() => { addChannel() }}>+Channel</button>
+                    {/* <button onClick={() => { addChannel() }}>+Channel</button> */}
                 </div>
                 <br />
                 {channels.map((channel) => (

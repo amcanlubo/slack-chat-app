@@ -25,15 +25,16 @@ const Login = () => {
         axios.post(`${url}/api/v1/auth/sign_in`, userData)
             .then((data) => {
                 const { headers } = data
-                console.log(data)
+                
                 history.push({
                     pathname: '/chatfeed',
                     state:{ headers }
                 })
-                
+                sessionStorage.setItem('headers', JSON.stringify(data))
+                console.log(data)
             })
             // .catch((error) => alert(error));
-            .catch((error) => console.error(error));       
+            .catch((error) => console.error(error));           
     }
     
     const handleOnClick = () => {
