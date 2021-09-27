@@ -28,3 +28,22 @@
 /* @layer components {
 
 } */
+
+#channels label {
+  float:left;
+  cursor: pointer;
+}
+
+#channels label span {
+  display:block;
+}
+
+#channels label input {
+  position:absolute;
+  display: none;
+}
+
+#channels input:checked + span {
+  background-color:#404040;
+  color:#F7F7F7;
+}
