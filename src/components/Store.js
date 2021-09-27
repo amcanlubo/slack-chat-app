@@ -3,6 +3,7 @@ import Reducer from './Reducer';
 
 const initialState = {
     ChannelID: ""
+    
 };
 
 const Store=({children})=>{
