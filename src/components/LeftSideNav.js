@@ -58,18 +58,14 @@ const LeftSideNav = ({ userHeaders }) => {
         <div className="relative min-h-screen flex">
             <div className="bg-primary text-secondary w-64">
             <h1 className='text-center font-bold'>MY CHANNELS</h1>
-                <div>
-                    <input className='w-40' ref={nameRef} type='text'/>
-                    {/* <button onClick={() => { addChannel() }}>+ADD</button> */}
-                    {/* <button onClick={() => { addChannel() }}>+Channel</button> */}
-                </div>
-                <br />
+            <div className="bg-primary text-secondary w-64 channels" id="channels">
                 {channels.map((channel) => (
-                    <>
-                        <br />
-                        <button onClick={() => { updateChatForm(channel.id) }}>{channel.name}</button>
-                    </>
-                ))}   
+                    <div className="relative">
+                        <label className="w-full text-left hover:bg-yellow-500" onClick={() => { updateChatForm(channel.id) }}><input type="radio" name="channel"/><span>{channel.name}</span></label>
+                    </div>
+                ))}
+                <br />
+                <button onClick={() => { addChannel() }}>Add Channel</button>
             </div>
         </div>
     )
