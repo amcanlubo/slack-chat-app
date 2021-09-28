@@ -12,7 +12,7 @@ const RightSideNav = ({userHeaders}) => {
         const addMessage = (e) => {
             e.preventDefault()
           axios.post(`${url}/api/v1/messages`, {    
-              'receiver_id': 433,
+              'receiver_id': 526,
             //   'receiver_id': 663,
               'receiver_class': "User",
               'body': dmRef.current.value,
@@ -31,7 +31,7 @@ const RightSideNav = ({userHeaders}) => {
         const getMessage = () => {
 
             setMessage([])
-            axios.get(`${url}/api/v1/messages?receiver_id=433&receiver_class=User`, userHeaders)
+            axios.get(`${url}/api/v1/messages?receiver_id=526&receiver_class=User`, userHeaders)
             // axios.get(`${url}/api/v1/messages?receiver_id=663&receiver_class=User`, userHeaders)
                 .then((response) => {
                     if (response.data.errors) return null;
@@ -63,11 +63,22 @@ const RightSideNav = ({userHeaders}) => {
             />    
             <button onClick={addMessage} type="submit" className="send-button" >SEND</button>
             </form>
+
+            <div className= 'flex bg-primary w-30'>
+                <div className = 'flex-col w-30'>
             {message.map((messages) => (
-                <ul>
+                
+                <ul className = {(messages.sender.id === 663) 
+                    ? 
+                    'chat_bubble outgoing'
+                    :
+                    'chat_bubble incoming'      
+                }>
                 {messages.body}
                 </ul>
             ))}  
+            </div>        
+            </div>        
             </div>        
         </div>       
         </>

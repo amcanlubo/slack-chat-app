@@ -4,7 +4,7 @@ import LeftSideNav from './LeftSideNav'
 import RightSideNav from './RightSideNav'
 import TopNav from './TopNav'
 import ChatForm from './ChatForm'
-import axios from 'axios'
+// import axios from 'axios'
 
 
 const ChatFeed = () => {
@@ -22,7 +22,6 @@ const ChatFeed = () => {
     <div className="w-100 flex-1 p:2 sm:p-6 justify-between flex flex-col">
       <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
          <ChatForm userHeaders={userHeaders}/>
-
       </div>
     </div>
       <RightSideNav userHeaders={userHeaders}  />
