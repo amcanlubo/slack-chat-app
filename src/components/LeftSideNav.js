@@ -56,8 +56,12 @@ const LeftSideNav = ({ userHeaders }) => {
 
 
     return (
+<<<<<<< HEAD
        <>
         <div className="relative min-h-screen flex flex-col">
+=======
+        <div className="relative min-h-screen flex">
+>>>>>>> 149efc5ec3ea425703fa83d3a6757b2085a9b562
             <div className="bg-primary text-secondary w-64">
             <h1 className='text-center font-bold'>MY CHANNELS</h1>
             <div className="bg-primary text-secondary w-64 channels" id="channels">
@@ -74,6 +78,7 @@ const LeftSideNav = ({ userHeaders }) => {
                     </div>
                 ))}
                 <br />
+<<<<<<< HEAD
             </div>
             </div>
 
@@ -128,6 +133,9 @@ const LeftSideNav = ({ userHeaders }) => {
                     ))}
                     </div>
                 </div>
+=======
+                <button onClick={() => { addChannel() }}>Add Channel</button>
+>>>>>>> 149efc5ec3ea425703fa83d3a6757b2085a9b562
             </div>
         </div>
         
