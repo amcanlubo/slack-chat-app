@@ -68,10 +68,11 @@ const CreateChannel = () => {
                 <label htmlFor='Name'></label>
                 <input 
                 className='w-40'
-                ref={nameRef }
+                ref={ nameRef }
                 type='text'
                 />
-                <button className="bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type='submit'>+</button>
+                <button className="bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                type='submit'>+</button>
             </form>
 
             <div className='px-2'>

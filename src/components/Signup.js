@@ -1,8 +1,11 @@
 import React, { useRef } from 'react'
+import { useHistory } from 'react-router';
 import axios from 'axios'
 
 
 function Signup() {
+
+    let history = useHistory()
     let emailRef = useRef(null)
     let passwordRef = useRef(null)
     let confirmpasswordRef = useRef(null)
@@ -27,6 +30,10 @@ function Signup() {
                 confirmpasswordRef.current.value=''
             })
             .catch((error) => console.error(error));
+    }
+
+    const handleOnClick = () => {
+        history.push('/login')
     }
 
 
@@ -78,6 +85,10 @@ function Signup() {
                         Sign Up
                     </button>
                 </div>
+                    <div className="signup-caption">
+                        Already have an account?
+                        <div onClick={handleOnClick}>Log In</div>
+                    </div>
             </form>
         </div>
     )

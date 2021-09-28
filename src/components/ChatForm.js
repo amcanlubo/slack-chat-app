@@ -60,15 +60,17 @@ const ChatForm = ({ userHeaders }) => {
   const addMessage = (e) => {
       e.preventDefault()
     axios.post(`${url}/api/v1/messages`, {
-        'receiver_id': state.ChannelID ,
+        // 'receiver_id': state.ChannelID ,
+        'receiver_id': 646 ,
         'receiver_class': 'Channel',
         'body': chatRef.current.value
     }, userHeaders)
         .then((response) => {
+            getMessage()
             // updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
             // console.log(userHeaders)
             console.log(response.data)
-            alert('success');
+            alert('message to channel sent');
             chatRef.current.value=''
         })
         .catch((error) => alert(error))
@@ -89,11 +91,24 @@ const ChatForm = ({ userHeaders }) => {
             />    
             <button type="submit" className="send-button" onClick={addMessage} >SEND</button>
         </form>
-        {message.map((messages) => (
-            <>
+        {/* Message Body */}
+
+        <div className= 'flex-col bg-primary w-30'>
+            <div className = 'flex-col w-30'>
+            {message.map((messages) => (      
+            <ul className = {(messages.sender.id === 663) 
+                ? 
+                'chat_bubble outgoing'
+                :
+                'chat_bubble incoming'      
+            }>
             {messages.body}
-            </>
-        ))}  
+            </ul>
+            ))}  
+            </div>        
+        </div>   
+
+        
         </div>
     )
 }

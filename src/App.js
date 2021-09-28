@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Store from './components/Store'
 import { Switch, Route } from 'react-router-dom'
 import axios from 'axios'
@@ -14,7 +14,7 @@ const App = () => {
   axios.defaults.baseURL = 'https://slackapi.avionschool.com/';
 
   return (
-    <div className='w-full flex h-screen'>
+    <>
       <Store>
         <Switch>
           <Route path="/login">
@@ -37,7 +37,7 @@ const App = () => {
           </Route>
         </Switch>
       </Store>
-    </div>
+    </>
   )
 }
 
