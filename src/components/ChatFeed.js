@@ -26,7 +26,16 @@ const ChatFeed = () => {
     </div>
       <RightSideNav userHeaders={userHeaders}  />
       </div>
-</div>      
+   </div>
+</div> */}
+
+<RightSideNav userHeaders={userHeaders}/>
+</div>
+</div>
+
+        {/* <div>
+            <LeftSideNav userHeaders={userHeaders}/>
+        </div> */}
 </>
     )
 }

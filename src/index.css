@@ -27,6 +27,7 @@
 
 @layer components {
 
+
   .chat_bubble {
       display:flex;
       flex-direction:column;
@@ -53,6 +54,7 @@
     background-color:blue;
   }
 }
+
 
 #channels label {
   float:left;

@@ -61,6 +61,7 @@ const LeftSideNav = ({ userHeaders }) => {
             <div className="bg-primary text-secondary w-64">
             <h1 className='text-center font-bold'>MY CHANNELS</h1>
             <div className="bg-primary text-secondary w-64 channels" id="channels">
+
             <div>
             <input className='w-40' ref={nameRef} type='text'/>
             <button onClick={() => { addChannel() }}>+Channel</button>
@@ -128,6 +129,7 @@ const LeftSideNav = ({ userHeaders }) => {
                     ))}
                     </div>
                 </div>
+
             </div>
         </div>
         
