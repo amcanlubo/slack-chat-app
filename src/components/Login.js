@@ -34,7 +34,7 @@ const Login = () => {
                 console.log(data)
             })
             // .catch((error) => alert(error));
-            .catch((error) => console.error(error));           
+            .catch((error) => console.error(error));  
     }
 
     const handleOnClick = () => {

@@ -35,7 +35,7 @@ const ChatForm = ({ userHeaders }) => {
             .catch((error) => {
                 console.log(error);
             })
-    })
+    }, [])
 
 
     const getMessage = () => {
@@ -81,8 +81,6 @@ const ChatForm = ({ userHeaders }) => {
         <div className='container h-full flex flex-col justify-between'>
             {state.ChannelID}
         <form>
-
-        
             <input
                 className="message-input"
                 placeholder="Send a message..."
