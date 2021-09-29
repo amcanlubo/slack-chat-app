@@ -1,8 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router'
-import LeftSideNav from './LeftSideNav'
 import RightSideNav from './RightSideNav'
 import TopNav from './TopNav'
+import Sidebar from './Sidebar'
 import ChatForm from './ChatForm'
 // import axios from 'axios'
 
@@ -16,16 +16,13 @@ const ChatFeed = () => {
    return (
       <>
          <div className='container flex h-screen w-full'>
-            <TopNav />
-            <div className="flex w-full pt-10">
-               <LeftSideNav userHeaders={userHeaders} />
-               <div className="w-100 flex-1 p:2 sm:p-6 justify-between flex flex-col">
-                  <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+            {/* <TopNav/> */}
+            <Sidebar userHeaders={userHeaders}/>
+            {/* <div className="flex w-full pt-10">
+               <LeftSideNav userHeaders={userHeaders} />*/}
+               
                      <ChatForm userHeaders={userHeaders} />
-                  </div>
-               </div>
-               <RightSideNav userHeaders={userHeaders} />
-            </div>
+                  {/* <RightSideNav userHeaders={userHeaders} /> */}
          </div>
 </>
     )

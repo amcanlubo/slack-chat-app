@@ -4,7 +4,7 @@ const Reducer = (state,action) => {
         case 'UPDATE_CHANNELID':
             return{
                 ...state,
-                ChannelID: action.payload
+                ChannelInfo: action.payload
             };
             default: return state;
     };
