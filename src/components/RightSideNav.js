@@ -67,7 +67,7 @@ const RightSideNav = ({userHeaders}) => {
 
             <div className= 'flex bg-primary w-30'>
                 <div className = 'flex-col w-30'>
-            {message.map((messages) => (
+                {message.map((messages) => (
                 
                 <ul className = {(messages.sender.id === 663) 
                     ? 
@@ -77,8 +77,8 @@ const RightSideNav = ({userHeaders}) => {
                 }>
                 {messages.body}
                 </ul>
-            ))}  
-            </div>        
+                ))}  
+                </div>        
             </div>        
             </div>        
         </div>       

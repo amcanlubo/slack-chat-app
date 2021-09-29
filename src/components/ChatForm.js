@@ -4,7 +4,6 @@ import axios from 'axios'
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
-    // console.log(userHeaders)
     const url = 'https://slackapi.avionschool.com'
     const [state, dispatch] = useContext(Context);
 
@@ -30,7 +29,7 @@ const ChatForm = ({ userHeaders }) => {
     useEffect(() => {
         axios.get(`${axios.defaults.baseURL}/api/v1/channels/${state.ChannelID}`, userHeaders, { 'id': state.ChannelID })
             .then((response) => {
-            console.log(response)
+                console.log(response)
             })
             .catch((error) => {
                 console.log(error);
@@ -54,14 +53,14 @@ const ChatForm = ({ userHeaders }) => {
 
     useEffect(() => {
         getMessage()
-    }, [updateMessageList])
+    }, [state])
 
 
   const addMessage = (e) => {
       e.preventDefault()
     axios.post(`${url}/api/v1/messages`, {
         // 'receiver_id': state.ChannelID ,
-        'receiver_id': 646 ,
+        'receiver_id': state.ChannelID ,
         'receiver_class': 'Channel',
         'body': chatRef.current.value
     }, userHeaders)
@@ -91,7 +90,7 @@ const ChatForm = ({ userHeaders }) => {
         </form>
         {/* Message Body */}
 
-        <div className= 'flex-col bg-primary w-30'>
+        <div className= 'flex'>
             <div className = 'flex-col w-30'>
             {message.map((messages) => (      
             <ul className = {(messages.sender.id === 663) 
