@@ -22,7 +22,7 @@ const ChatFeed = () => {
                <LeftSideNav userHeaders={userHeaders} />*/}
                
                      <ChatForm userHeaders={userHeaders} />
-                  {/* <RightSideNav userHeaders={userHeaders} /> */}
+                  <RightSideNav userHeaders={userHeaders} />
          </div>
 </>
     )

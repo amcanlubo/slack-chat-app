@@ -15,10 +15,10 @@ const Database = () => {
             url: 'api/v1/users',
             data: {},
             headers: {
-                'access-token': "GCnOpPIiSG9XqnWlbilujw",
-                'client': "PyGHLXR3gmZsdsF0a4KJ9Q",
-                'expiry': "1633936986",
-                'uid': "ahree00@test.com"
+                'access-token': "Yda9SCUwjEJxqfuwgX8JJQ",
+                'client': "aHP2F5jrc4HiwMUiKjwU0w",
+                'expiry': "1634122508",
+                'uid': "sean1@gmail.com"
             },
             method: 'GET'      
         })
