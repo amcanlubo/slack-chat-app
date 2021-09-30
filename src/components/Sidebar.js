@@ -52,6 +52,7 @@ const Sidebar = ({ userHeaders }) => {
         getChannelNames()
     }, [updateChannelList])
 
+
     const addChannel = () => {
         axios.post(`${axios.defaults.baseURL}/api/v1/channels`, {
             // "name": "test#12",
@@ -69,7 +70,6 @@ const Sidebar = ({ userHeaders }) => {
 
     return (
         <>
-
             <div className="bg-primary text-secondary h-screen w-64">
                 <div className="channelsWrap">
                     <div className="w-full text-left hover:bg-yellow-500 p-1 cursor-pointer" onClick={() => { handleChannelDropdown() }}>

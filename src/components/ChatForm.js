@@ -9,11 +9,6 @@ const ChatForm = ({ userHeaders }) => {
     const [state, dispatch] = useContext(Context);
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState([])
-    const [messageIDState, setMessageIDState] = useState('')
-
-    useEffect(() => {
-        dispatch({ type: 'UPDATE_MESSAGEID', payload: messageIDState })
-    }, [])
 
 
     // useEffect(() => {
@@ -26,15 +21,17 @@ const ChatForm = ({ userHeaders }) => {
     //         })
     // })
 
+    useEffect(()=>{
+        setIsLoading(true)
+    },[state])
+
 
     const getMessage = () => {
-        setIsLoading(true)
         axios.get(`${url}/api/v1/messages?receiver_id=${state.ChannelInfo.channelID}&receiver_class=Channel`, userHeaders)
             .then((response) => {
                 setMessage([])
                 if (response.data.errors) return null;
                 response.data.data.map((message) => setMessage((messages) => [...messages, message]))
-                console.log(response.data.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -87,6 +84,20 @@ const ChatForm = ({ userHeaders }) => {
 
                     <div class="py-3"></div>
                     {/* Message Body */}
+                    {/* <div className='flex-col bg-primary w-30'>
+                            <div className='flex-col w-30'>
+                                {message.map((messages) => (
+                                    <ul className={(messages.sender.id === 663)
+                                        ?
+                                        'chat_bubble outgoing'
+                                        :
+                                        'chat_bubble incoming'
+                                    }>
+                                        {messages.body}
+                                    </ul>
+                                ))}
+                            </div>
+                        </div> */}
                     {!isLoading ?
                         <div className='flex-col bg-primary w-30'>
                             <div className='flex-col w-30'>
