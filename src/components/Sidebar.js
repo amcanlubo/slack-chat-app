@@ -58,7 +58,7 @@ const Sidebar = ({ userHeaders }) => {
             // "name": "test#12",
             // 'user_ids': ['sean1@gmail.com', 'sean@gmail.com'],
             "name": nameRef.current.value,
-            'user_ids': ['sean@gmail.com', 'ahree00@test.com'], //get from session
+            'user_ids': ['sean@gmail.com', 'ahree00@test.com'], 
         }, userHeaders)
             .then(() => {
                 updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
@@ -72,8 +72,23 @@ const Sidebar = ({ userHeaders }) => {
         <>
             <div className="bg-primary text-secondary h-screen w-64">
                 <div className="channelsWrap">
-                    <div className="w-full text-left hover:bg-yellow-500 p-1 cursor-pointer" onClick={() => { handleChannelDropdown() }}>
-                        Channels
+                    <div>
+                        <input 
+                            ref={ nameRef } 
+                            type= 'text' 
+                            placeholder='add a channel' 
+                        />
+                        
+                        <button 
+                            onClick={addChannel} 
+                            type='submit' 
+                            className="bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            +
+                        </button>
+                    </div>
+
+                    <div className="w-full text-left font-bold hover:bg-yellow-500 p-1 cursor-pointer" onClick={() => { handleChannelDropdown() }}>
+                        MY CHANNELS
                     </div>
                     {channelsSubMenu ?
                         <div className="border-" id="channels">

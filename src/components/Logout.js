@@ -6,6 +6,7 @@ const Logout = ({status, updater}) => {
     
     function clear() {
         // Clear the headers
+        //headers[]
         sessionStorage.clear();
         history.push('/login')    
     }

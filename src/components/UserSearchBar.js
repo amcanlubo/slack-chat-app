@@ -4,7 +4,7 @@ const UserSearchBar = ({ users }) => {
 
     let uids = []
     users.map((user) => uids.push(user.uid))
-
+    console.log(users)
     const [filteredData, setFilteredData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
     const [searchOutput, setSearchOutput] = useState('');
