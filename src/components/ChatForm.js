@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
+// import {UserGroupIcon} from '@heroicons/react/solid'
+import Modal from './Modal';
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
@@ -63,44 +65,37 @@ const ChatForm = ({ userHeaders }) => {
             })
             .catch((error) => alert(error))
     }
-
+    
 
     return (
         <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
+
             <div class="absolute top-0 bg-secondary w-full text-white z-50">
                 {state.ChatInfo.name}
+
+//             <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
+//                 {state.ChannelInfo.channelName}
+//                 <Modal />
+
             </div>
             <form class="absolute bottom-0 w-full bg-secondary z-50">
-                        <input
-                            className="message-input w-5/6"
-                            placeholder="Send a message..."
-                            type='text'
-                            ref={chatRef}
-                        />
-                        <button type="submit" className="send-button" onClick={addMessage} >SEND</button>
-                    </form>
-            <div className="flex sm:items-center justify-between border-b-2 border-gray-200">
-                <div className='container flex flex-col justify-between sm:px-6 overflow-auto  max-h-screen'>
+                <input
+                    className="message-input w-5/6"
+                    placeholder="Send a message..."
+                    type='text'
+                    ref={chatRef}
+                />
+                <button type="submit" className="send-button text-white font-semibold ml-10" onClick={addMessage} >SEND</button>
+            </form>
+            
+            <div className="flex sm:items-center justify-between border-b-2 border-gray-200 max-h-screen">
+                <div className='container flex flex-col justify-between sm:px-6 overflow-auto  '>
 
                     <div class="py-3"></div>
-                    {/* Message Body */}
-                    {/* <div className='flex-col bg-primary w-30'>
-                            <div className='flex-col w-30'>
-                                {message.map((messages) => (
-                                    <ul className={(messages.sender.id === 663)
-                                        ?
-                                        'chat_bubble outgoing'
-                                        :
-                                        'chat_bubble incoming'
-                                    }>
-                                        {messages.body}
-                                    </ul>
-                                ))}
-                            </div>
-                        </div> */}
+
                     {!isLoading ?
-                        <div className='flex-col bg-primary w-30'>
-                            <div className='flex-col w-30'>
+                        <div className='flex flex-col py-12'>
+                            <div className="flex-1">
                                 {message.map((messages) => (
                                     <ul className={(messages.sender.id === 663)
                                         ?
@@ -193,9 +188,6 @@ const ChatForm = ({ userHeaders }) => {
                             </div>
                         </>
                     }
-
-
-
                 </div>
             </div>
         </div>

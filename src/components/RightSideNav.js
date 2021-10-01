@@ -1,103 +1,110 @@
-
-import React, { useEffect, useState, useRef } from 'react'
+import React, {  useContext, useEffect, useState } from 'react'
+// import React, {  useContext, useEffect, useState } from 'react'
+import { Context } from './Store';
 import axios from 'axios'
 import UserSearchBar from './UserSearchBar'
 
-
-const RightSideNav = ({ userHeaders }) => {
-    const [message, setMessage] = useState([])
-    const [updateMessageList, setUpdateMessageList] = useState(true)
-    const [users, setUsers] = useState([])
-    let dmRef = useRef(null)
+const RightSideNav = ({userHeaders}) => {
+    // console.log(userHeaders)
+    // let userRef = useRef(null)
+    const [state, dispatch] = useContext(Context);
+    const [users, setUsers] = useState([]);
+    const [members, setMembers] = useState([]);
+    const [names, setNames] = useState([]);
+    // const [memberlist, setMemberlist] = useState([]);
+    
     const url = 'https://slackapi.avionschool.com'
 
-    // console.log(userHeaders)
+       
+        // let memberlist=[]
+        let array=[]
+        const getMembers = () => {
+            
+            // setNames([])
+            axios.get(`${url}/api/v1/channels/${state.ChannelInfo.channelID}`, userHeaders)
+                .then((response) => {
+                    setMembers([])
+                    if (response.data.errors) return null;
+                    // response.data.data.channel_members.map((member) => setMembers((members) => [...members, member]))
+                    setMembers(response.data.data.channel_members)
+                    console.log(members)
+                    // return members
 
-    const addMessage = (e) => {
-        e.preventDefault()
-        axios.post(`${url}/api/v1/messages`, {
-            'receiver_id': 526,
-            //   'receiver_id': 663,
-            'receiver_class': "User",
-            'body': dmRef.current.value,
-        }, userHeaders)
+                    
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
 
-            .then((response) => {
-                getMessage()
-                console.log(response.data)
-                alert('message sent');
-                dmRef.current.value = ''
-            })
-            .catch((error) => alert(error))
-    }
-
-
-    const getMessage = () => {
-
-        setMessage([])
-        axios.get(`${url}/api/v1/messages?receiver_id=526&receiver_class=User`, userHeaders)
-            // axios.get(`${url}/api/v1/messages?receiver_id=663&receiver_class=User`, userHeaders)
-            .then((response) => {
-                if (response.data.errors) return null;
-                response.data.data.map((message) => setMessage((messages) => [...messages, message]))
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-
-    useEffect(() => {
-        getMessage()
-    }, [updateMessageList])
-
-    useEffect(() => {
-        axios.get(`${url}/api/v1/users`, userHeaders)
-            .then((response) => {
-                // console.log(response.data)
-                setUsers(response.data?.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }, [])
+                
+                members.forEach(function(member){
+                    users.forEach(function (item) {
+                        if (item.id === member.user_id){
+                            array.push(item)
+                        } 
+                    })                    
+                })
+                // memberlist = [members]
+                setNames(array)
+        }
+               
+        useEffect(() => {
+           
+            getMembers()
+        }, [state])
 
 
+        useEffect(() => {
+            axios.get(`${url}/api/v1/users`, userHeaders)
+                .then((response) => {
+                    // console.log(response.data)
+                    setUsers(response.data?.data)
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                
+        }, [])
+    
+        
     return (
         <>
-        
-            <div className="relative min-h-screen flex">
-                <div className="bg-primary text-secondary w-64">
-                    <h1 className='text-center font-bold'>MEMBERS</h1>
-                    <UserSearchBar users={users}/>
-                    {/* <form>
-                        <input
-                            className="message-input"
-                            placeholder="Send a message..."
-                            type='text'
-                            ref={dmRef}
-                        />
-                        <button onClick={addMessage} type="submit" className="send-button" >SEND</button>
-                    </form>
+        <div className="relative min-h-screen flex">
+            <div className="bg-primary text-secondary w-64">
+            <h1 className='text-center font-bold'>MEMBERS</h1>
+            {/* <form> */}
+            {/* <input
+                className="message-input"
+                type="email"
+                name="email"
+                placeholder="Add more members"
+                ref={ userRef }
+            />     */}
+            {/* <button onClick={addMember} type="submit" className="send-button" >ADD</button> */}
+            
+            {/* <UserSearchBar users={users} type='text'/> */}
+            {/* <UserSearchBar users={users} ref={userRef} /> */}
+            <UserSearchBar users={users} userHeaders={userHeaders}/>
+         
+            
+            <div className= 'flex bg-primary w-30'>
+                <div className = 'flex-col w-30'>
+            
+                {names.map((member) => (
+                <ul>
+                {member.uid}
+                </ul>
+                ))}  
+                </div>        
+            </div>        
 
-                    <div className='flex bg-primary w-30'>
-                        <div className='flex-col w-30'>
-                            {message.map((messages) => (
-
-                                <ul className={(messages.sender.id === 663)
-                                    ?
-                                    'chat_bubble outgoing'
-                                    :
-                                    'chat_bubble incoming'
-                                }>
-                                    {messages.body}
-                                </ul>
-                            ))}
-                        </div>
-                    </div> */}
-                </div>
-            </div>
+           
+            </div>        
+        </div>       
         </>
     )
 }
 
 export default RightSideNav
+
+

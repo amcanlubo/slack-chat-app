@@ -1,18 +1,22 @@
 import { useHistory } from "react-router";
+import { useState } from "react";
 
-const Logout = ({status, updater}) => {
+const Logout = ({userHeaders}) => {
 
     const history = useHistory();
+    const [headers, setHeaders] = useState({userHeaders})
+       
+
     
     function clear() {
-        // Clear the headers
-        sessionStorage.clear();
-        history.push('/login')    
+        setHeaders([])
+        // sessionStorage.clear();
+        history.push('/login')   
     }
    
     return (
         <>
-            <span className='logout' onClick={clear}>Logout</span>
+            <span className='text-white' onClick={clear}>Logout</span>
         </>
     )
 }
