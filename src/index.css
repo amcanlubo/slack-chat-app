@@ -27,34 +27,29 @@
 
 @layer components {
 
-
   .chat_bubble {
       display:flex;
-      flex-direction:column;
-      flex-wrap:wrap;
-      padding: 4px;
+      text-align:center;
+      padding: 8px;
       border-radius: 5px;
       margin: 5px;
       position:relative;
   }
   .incoming {
     float:left;
-    /* text-align:left; */
     left:0;
     margin-right: 18px;
     color:white;
-    background-color:#3B2A50;
+    background-color:blue;
   }
   .outgoing {
     float:right;
-    /* text-align:right; */
     right:0; 
     margin-left: 4px;
     color:white;
-    background-color:blue;
+    background-color:#3b1c1c;
   }
 }
-
 
 #channels label {
   float:left;

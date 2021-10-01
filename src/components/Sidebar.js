@@ -41,7 +41,8 @@ const Sidebar = ({ userHeaders }) => {
             .then((response) => {
                 if (response.data.errors) return null;
                 response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
-                console.log(response.data.data)
+                // console.log(response.data.data)
+                console.log(response)
             })
             .catch((error) => {
                 console.log(error);
@@ -70,7 +71,7 @@ const Sidebar = ({ userHeaders }) => {
 
     return (
         <>
-            <div className="bg-primary text-secondary h-screen w-64">
+            <div className="bg-primary text-secondary h-screen w-64 py-12">
                 <div className="channelsWrap">
                     <div>
                         <input 
