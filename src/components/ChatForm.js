@@ -23,10 +23,6 @@ const ChatForm = ({ userHeaders }) => {
     //         })
     // })
 
-    useEffect(()=>{
-        setIsLoading(true)
-    },[state])
-
 
     const getMessage = () => {
         axios.get(`${url}/api/v1/messages?receiver_id=${state.ChatInfo.ID}&receiver_class=${state.ChatInfo.receiverClass}`, userHeaders)
@@ -44,6 +40,7 @@ const ChatForm = ({ userHeaders }) => {
     }
 
     useEffect(() => {
+        setIsLoading(true)
         getMessage()
     }, [state])
 
@@ -65,7 +62,7 @@ const ChatForm = ({ userHeaders }) => {
             })
             .catch((error) => alert(error))
     }
-    
+
 
     return (
         <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
@@ -73,10 +70,10 @@ const ChatForm = ({ userHeaders }) => {
             {/* <div class="absolute top-0 bg-secondary w-full text-white z-50">
                 {state.ChatInfo.name} */}
 
-          <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
-            {/* //{state.ChannelInfo.channelName} */}
+            <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
+                {/* //{state.ChannelInfo.channelName} */}
                 {state.ChatInfo.name}
-                <Modal />
+                <Modal userHeaders={userHeaders} />
 
             </div>
             <form class="absolute bottom-0 w-full bg-secondary z-50">
@@ -88,7 +85,7 @@ const ChatForm = ({ userHeaders }) => {
                 />
                 <button type="submit" className="send-button text-white font-semibold ml-10" onClick={addMessage} >SEND</button>
             </form>
-            
+
             <div className="flex sm:items-center justify-between border-b-2 border-gray-200 max-h-screen">
                 <div className='container flex flex-col justify-between sm:px-6 overflow-auto  '>
 
@@ -98,7 +95,7 @@ const ChatForm = ({ userHeaders }) => {
                         <div className='flex flex-col py-12'>
                             <div className="flex-1">
                                 {message.map((messages) => (
-                                    <ul className={(messages.sender.id === 663)
+                                    <ul className={(messages.sender.uid === userHeaders.headers.uid)
                                         ?
                                         'chat_bubble outgoing'
                                         :

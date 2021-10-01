@@ -5,7 +5,7 @@ import {XIcon} from '@heroicons/react/outline'
 import {LockClosedIcon} from '@heroicons/react/outline'
 
 
-const Modal = () => {
+const Modal = ({userHeaders}) => {
 
   const [showModal, setShowModal] = useState(false);
   
