@@ -1,10 +1,10 @@
 const Reducer = (state,action) => {
     switch(action.type){
         
-        case 'UPDATE_CHANNELID':
+        case 'PASS_TO_CHATFORM':
             return{
                 ...state,
-                ChannelInfo: action.payload
+                ChatInfo: action.payload
             };
             default: return state;
     };

@@ -29,7 +29,7 @@ const ChatForm = ({ userHeaders }) => {
 
 
     const getMessage = () => {
-        axios.get(`${url}/api/v1/messages?receiver_id=${state.ChannelInfo.channelID}&receiver_class=Channel`, userHeaders)
+        axios.get(`${url}/api/v1/messages?receiver_id=${state.ChatInfo.ID}&receiver_class=${state.ChatInfo.receiverClass}`, userHeaders)
             .then((response) => {
                 setMessage([])
                 if (response.data.errors) return null;
@@ -52,8 +52,8 @@ const ChatForm = ({ userHeaders }) => {
         e.preventDefault()
         axios.post(`${url}/api/v1/messages`, {
             // 'receiver_id': state.ChannelID ,
-            'receiver_id': state.ChannelInfo.channelID,
-            'receiver_class': 'Channel',
+            'receiver_id': state.ChatInfo.ID,
+            'receiver_class': state.ChatInfo.receiverClass,
             'body': chatRef.current.value
         }, userHeaders)
             .then((response) => {
@@ -69,9 +69,14 @@ const ChatForm = ({ userHeaders }) => {
 
     return (
         <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
-            <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
-                {state.ChannelInfo.channelName}
-                <Modal />
+
+            <div class="absolute top-0 bg-secondary w-full text-white z-50">
+                {state.ChatInfo.name}
+
+//             <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
+//                 {state.ChannelInfo.channelName}
+//                 <Modal />
+
             </div>
             <form class="absolute bottom-0 w-full bg-secondary z-50">
                 <input

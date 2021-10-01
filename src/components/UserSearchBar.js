@@ -39,7 +39,7 @@ const UserSearchBar = ({ users, userHeaders }) => {
     }
 
     async function formOnFocusOut(){
-        await sleep(100)
+        await sleep(500)
         setSearchOutput(false)
     }
 
@@ -92,19 +92,19 @@ const UserSearchBar = ({ users, userHeaders }) => {
                 }}
                 onChange={(e) => {
                     setSearchInput(e.target.value)
-                }}
-               
-                />
+
+                }} />
+
                    <button onClick={addMember} type='submit' 
             className="bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             +</button>
             <div>
+
                 {searchOutput ? <ul>{filteredData.map((user, index) => (
                     <li key={index}><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
                 ))
 
                 }</ul> : <></>}
-            </div>
         </>
     )
 }
