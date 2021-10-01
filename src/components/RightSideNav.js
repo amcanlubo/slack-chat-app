@@ -6,22 +6,21 @@ import UserSearchBar from './UserSearchBar'
 
 const RightSideNav = ({userHeaders}) => {
     // console.log(userHeaders)
-    // let userRef = useRef(null)
+    
     const [state, dispatch] = useContext(Context);
     const [users, setUsers] = useState([]);
     const [members, setMembers] = useState([]);
     const [names, setNames] = useState([]);
-    // const [memberlist, setMemberlist] = useState([]);
+    
     
     const url = 'https://slackapi.avionschool.com'
 
-       
-        // let memberlist=[]
         let array=[]
+        // console.log(state)
         const getMembers = () => {
             
-            // setNames([])
-            axios.get(`${url}/api/v1/channels/${state.ChannelInfo.channelID}`, userHeaders)
+            axios.get(`${url}/api/v1/channels/${state.ChatInfo.ID}`, userHeaders)
+            
                 .then((response) => {
                     setMembers([])
                     if (response.data.errors) return null;
@@ -36,7 +35,6 @@ const RightSideNav = ({userHeaders}) => {
                     console.log(error);
                 })
 
-                
                 members.forEach(function(member){
                     users.forEach(function (item) {
                         if (item.id === member.user_id){
@@ -44,12 +42,11 @@ const RightSideNav = ({userHeaders}) => {
                         } 
                     })                    
                 })
-                // memberlist = [members]
                 setNames(array)
+                console.log(array)
         }
                
         useEffect(() => {
-           
             getMembers()
         }, [state])
 
@@ -72,21 +69,9 @@ const RightSideNav = ({userHeaders}) => {
         <div className="relative min-h-screen flex">
             <div className="bg-primary text-secondary w-64">
             <h1 className='text-center font-bold'>MEMBERS</h1>
-            {/* <form> */}
-            {/* <input
-                className="message-input"
-                type="email"
-                name="email"
-                placeholder="Add more members"
-                ref={ userRef }
-            />     */}
-            {/* <button onClick={addMember} type="submit" className="send-button" >ADD</button> */}
             
-            {/* <UserSearchBar users={users} type='text'/> */}
-            {/* <UserSearchBar users={users} ref={userRef} /> */}
             <UserSearchBar users={users} userHeaders={userHeaders}/>
          
-            
             <div className= 'flex bg-primary w-30'>
                 <div className = 'flex-col w-30'>
             
