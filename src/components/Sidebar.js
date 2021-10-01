@@ -1,25 +1,30 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store'
+import SidebarDMs from './SidebarDMs'
 import axios from 'axios'
 
 const Sidebar = ({ userHeaders }) => {
     let nameRef = useRef(null)
     const [channels, setChannels] = useState([])
     const [updateChannelList, setUpdateChannelList] = useState(true)
-    const [channelIDState, setChannelIDState] = useState('')
+    const [IDState, setIDState] = useState('')
     const [channelsSubMenu, setChannelsSubMenu] = useState(true)
     const [directMessagesSubMenu, setDirectMessagesSubMenu] = useState(true)
-    const [channelNameState,setChannelNameState] = useState('')
+    const [nameState, setNameState] = useState('')
+    const [receiverClass, setReceiverClass] = useState('')
     const [state, dispatch] = useContext(Context);
+    let tempChannels = []
 
-    let channelInfo = {
-        'channelID':channelIDState,
-        'channelName':channelNameState,
+    let chatInfo = {
+        'ID': IDState,
+        'name': nameState,
+        'receiverClass': receiverClass                                                                                                                      
     }
 
-    const updateChatForm = (channelID,channelName) => {
-        setChannelIDState(channelID)
-        setChannelNameState(channelName)
+    const updateChatForm = (ID, name,receiverClass) => {
+        setIDState(ID)
+        setNameState(name)
+        setReceiverClass(receiverClass)
     }
 
     const handleChannelDropdown = () => {
@@ -30,8 +35,8 @@ const Sidebar = ({ userHeaders }) => {
     }
 
     useEffect(() => {
-        dispatch({ type: 'UPDATE_CHANNELID', payload: channelInfo })
-    }, [channelIDState])
+        dispatch({ type: 'PASS_TO_CHATFORM', payload: chatInfo })
+    }, [IDState])
 
     const getChannelNames = () => {
 
@@ -40,11 +45,13 @@ const Sidebar = ({ userHeaders }) => {
         axios.get(`${axios.defaults.baseURL}/api/v1/channels`, userHeaders)
             .then((response) => {
                 if (response.data.errors) return null;
-                response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
-                console.log(response.data.data)
+                response.data.data.map((channel) => tempChannels.push(channel))
             })
             .catch((error) => {
                 console.log(error);
+            })
+            .finally(()=>{
+                setChannels(tempChannels)
             })
     }
 
@@ -64,6 +71,7 @@ const Sidebar = ({ userHeaders }) => {
                 updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
                 alert('success');
                 nameRef.current.value = ''
+                
             })
             .catch((error) => alert(error))
     }
@@ -78,16 +86,15 @@ const Sidebar = ({ userHeaders }) => {
                     {channelsSubMenu ?
                         <div className="border-" id="channels">
                             {channels.map((channel) => (
-                                <label className="w-full text-left hover:bg-yellow-500" onClick={() => { updateChatForm(channel.id,channel.name) }}>
+                                <label className="w-full text-left hover:bg-yellow-500" onClick={() => { updateChatForm(channel.id, channel.name, 'Channel') }}>
                                     <input type="radio" name="channel" />
                                     <span className="pl-3 py-1">{channel.name}</span>
                                 </label>
                             ))}
                         </div>
                         : <></>}
-
-
                 </div>
+                <SidebarDMs userHeaders={userHeaders} channels={channels} updateChatForm={updateChatForm}/>
             </div>
         </>
     )

@@ -30,7 +30,7 @@ const UserSearchBar = ({ users }) => {
     }
 
     async function formOnFocusOut(){
-        await sleep(100)
+        await sleep(500)
         setSearchOutput(false)
     }
 
@@ -56,13 +56,11 @@ const UserSearchBar = ({ users }) => {
                 onChange={(e) => {
                     setSearchInput(e.target.value)
                 }} />
-            <div>
                 {searchOutput ? <ul>{filteredData.map((user, index) => (
                     <li key={index}><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
                 ))
 
                 }</ul> : <></>}
-            </div>
         </>
     )
 }
