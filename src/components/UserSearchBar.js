@@ -105,6 +105,7 @@ const UserSearchBar = ({ users, userHeaders }) => {
                 ))
 
                 }</ul> : <></>}
+            </div>
         </>
     )
 }

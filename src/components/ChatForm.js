@@ -70,12 +70,13 @@ const ChatForm = ({ userHeaders }) => {
     return (
         <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
 
-            <div class="absolute top-0 bg-secondary w-full text-white z-50">
-                {state.ChatInfo.name}
+            {/* <div class="absolute top-0 bg-secondary w-full text-white z-50">
+                {state.ChatInfo.name} */}
 
-//             <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
-//                 {state.ChannelInfo.channelName}
-//                 <Modal />
+          <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
+            {/* //{state.ChannelInfo.channelName} */}
+                {state.ChatInfo.name}
+                <Modal />
 
             </div>
             <form class="absolute bottom-0 w-full bg-secondary z-50">
