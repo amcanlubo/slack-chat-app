@@ -28,18 +28,9 @@
 
 @layer components {
 
-  /* .message-form-container {
-    position: absolute;
-    bottom: 0px;
-    width: calc(100% - 36px);
-    padding: 18px;
-    background-color: rgb(240, 240, 240);
-    overflow-y:auto;
-  } */
-  
 
   .chat_bubble {
-      width:50%;
+      background:pink;
       display:flex;
       text-align:center;
       padding: 8px;
