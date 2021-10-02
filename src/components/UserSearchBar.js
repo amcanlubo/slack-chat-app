@@ -79,6 +79,7 @@ const UserSearchBar = ({ users, userHeaders, setMembers }) => {
               setMembers(updateMemberList)
             //   console.log(response.data)
               alert("User is added to this channel!");
+              setSearchInput('')
             
           })
           .catch((error) => alert(error))
@@ -105,8 +106,8 @@ const UserSearchBar = ({ users, userHeaders, setMembers }) => {
             +</button>
             <div>
 
-                {searchOutput ? <ul className='overflow-auto h-40' >{filteredData.map((user, index) => (
-                    <li key={index} className='overflow-auto'><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
+                {searchOutput ? <ul className='overflow-auto h-40 z-10' >{filteredData.map((user, index) => (
+                    <li key={index} ><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
                 ))
 
                 }</ul> : <></>}

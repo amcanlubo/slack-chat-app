@@ -51,6 +51,7 @@ const RightSideNav = ({ userHeaders }) => {
     }, [state, members])
 
 
+    
     useEffect(() => {
         axios.get(`${url}/api/v1/users`, userHeaders)
             .then((response) => {
@@ -60,35 +61,14 @@ const RightSideNav = ({ userHeaders }) => {
             .catch((error) => {
                 console.log(error);
             })
-
     }, [])
 
 
     return (
         <>
 
-            {/* <div className="relative min-h-50 flex">
-                <div className="bg-primary w-64"> */}
-                    {/* <h1 className='text-center font-bold'>MEMBERS</h1> */}
-
-                    {/* <UserSearchBar users={users} userHeaders={userHeaders} />
-
-                    <div className='flex bg-primary w-30'>
-                        <div className='flex-col w-30'>
-
-                            {names.map((member) => (
-                                <ul>
-                                    {member.uid}
-                                </ul>
-                            ))}
-                        </div>
-                    </div>
-
-
-                </div>
-            </div> */}
-
-            <>
+            
+       
       <button 
         className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 relative right-0"
         type="button"
@@ -121,7 +101,7 @@ const RightSideNav = ({ userHeaders }) => {
                 
 
                 <div class="relative p-6 flex-auto">
-                    <div className='z-10'>
+                    <div>
                     <UserSearchBar users={users} userHeaders={userHeaders} setMembers={setMembers} />
                     </div>
                     {names.map((member) => (
@@ -148,7 +128,7 @@ const RightSideNav = ({ userHeaders }) => {
         </>
       ) : null}
     </>
-        </>
+        
     )
 }
 

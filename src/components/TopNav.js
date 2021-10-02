@@ -1,12 +1,12 @@
 import React from 'react'
 import Logout from './Logout'
+import Modal from './Modal'
 
 const TopNav = ({userHeaders}) => {
     return (
-        <div className='z-2 container flex text-yellow bg-black h-8 absolute top-0 content-center items-center justify-between '>
-            <h4>TOP NAV</h4>
-            <span className='text-primary'>{userHeaders.headers.uid}</span>
-            <span><Logout userHeaders={userHeaders} user /></span>
+        <div className='z-50 container justify-between flex px-5 text-white bg-black h-8 absolute top-0 content-center items-center '>
+            <Modal userHeaders={userHeaders}  />
+            <Logout userHeaders={userHeaders}  />
         </div>
     )
 }
