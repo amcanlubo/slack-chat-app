@@ -47,7 +47,7 @@ const CreateChannel = () => {
 
     }).then((response) => {
         setChannel(response.data?.data)
-        console.log(channel)
+        // console.log(channel)
 
     }).catch((error) => {
         console.error(error);

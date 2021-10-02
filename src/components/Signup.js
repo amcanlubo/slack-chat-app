@@ -42,6 +42,19 @@ function Signup() {
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 font-Lato bg-primary" onSubmit={handleSignup}>
                 <h1 className="text-gray-700 text-xl text-center font-bold mb-2" >SIGN UP</h1>
 
+
+                <div className="mb-4 flex-col">
+                    <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2" >
+                        Email
+                    </label>
+                    <input
+                        ref={emailRef}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        type="email"
+                        placeholder="enter email"
+                    />
+                </div>
+
                 <div className="mb-4 flex-col">
                     <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2" >
                         Email

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store'
 import SidebarDMs from './SidebarDMs'
+// import Logout from './Logout'
 import axios from 'axios'
 
 const Sidebar = ({ userHeaders }) => {
@@ -84,7 +85,9 @@ const Sidebar = ({ userHeaders }) => {
 
     return (
         <>
+            
             <div className="bg-primary text-secondary h-screen w-64 py-12">
+            {/* <Logout /> */}
                 <div className="channelsWrap">
                     <div>
                         <input 

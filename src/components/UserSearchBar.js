@@ -3,12 +3,14 @@ import { Context } from './Store';
 import axios from 'axios'
 
 
-const UserSearchBar = ({ users, userHeaders }) => {
+const UserSearchBar = ({ users, userHeaders, setMembers }) => {
     // console.log(userHeaders)
     
     let uids = []
     users.map((user) => uids.push(user.uid))
-
+    // console.log(users)
+    setMembers(users)
+    
     const [state, dispatch] = useContext(Context);
     const [filteredData, setFilteredData] = useState([]);
     const [searchInput, setSearchInput] = useState('');
@@ -62,7 +64,6 @@ const UserSearchBar = ({ users, userHeaders }) => {
 
     const addMember = (e) => {
         e.preventDefault()
-
         axios.post(`${url}/api/v1/channel/add_member`, {    
         //   'id':'805',
         //   'id':state.ChannelInfo.channelID,
@@ -75,7 +76,8 @@ const UserSearchBar = ({ users, userHeaders }) => {
           .then((response) => {
             //   getMembers()
               updateMemberList ? setUpdateMemberList(false) : setUpdateMemberList(true)
-              console.log(response.data)
+              setMembers(updateMemberList)
+            //   console.log(response.data)
               alert("User is added to this channel!");
             
           })

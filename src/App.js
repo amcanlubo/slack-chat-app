@@ -23,15 +23,15 @@ const App = () => {
           <Route path="/signup">
             <Signup />
           </Route>
-          <Route path="/database">
+          {/* <Route path="/database">
             <Database />
-          </Route>
+          </Route> */}
           <Route path="/chatfeed">
             <ChatFeed />
           </Route>
-          <Route path="/dm">
+          {/* <Route path="/dm">
             <DirectMessage />
-          </Route>
+          </Route> */}
           <Route path="/">
             <Login />
           </Route>
