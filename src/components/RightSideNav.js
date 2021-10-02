@@ -12,9 +12,8 @@ const RightSideNav = ({ userHeaders }) => {
 
     const [state, dispatch] = useContext(Context);
     const [users, setUsers] = useState([]);
-    // const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState([]);
     const [names, setNames] = useState([]);
-
     const [showModal, setShowModal] = useState(false);
   
 // console.log(state.ChatInfo.name)
@@ -32,9 +31,10 @@ const RightSideNav = ({ userHeaders }) => {
                 // return members
                 response.data.data.channel_members.forEach(function (member) {
                     users.forEach(function (item) {
+                        // if (item.id === member.nickname) {
                         if (item.id === member.user_id) {
                             array.push(item)
-                            console.log(array)
+                            // console.log(array)
                         }
                     })
                 })
@@ -48,7 +48,7 @@ const RightSideNav = ({ userHeaders }) => {
 
     useEffect(() => {
         getMembers()
-    }, [state])
+    }, [state, members])
 
 
     useEffect(() => {
@@ -90,7 +90,7 @@ const RightSideNav = ({ userHeaders }) => {
 
             <>
       <button 
-        className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 relative right-0"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -114,7 +114,7 @@ const RightSideNav = ({ userHeaders }) => {
                     </span>
                   </div>
                   
-                  <span className="text-gray-500" >Members</span>
+                  <span className="text-gray-500">Members</span>
                   
                 </div>
                 {/*body*/}     
@@ -122,7 +122,7 @@ const RightSideNav = ({ userHeaders }) => {
 
                 <div class="relative p-6 flex-auto">
                     <div className='z-10'>
-                    <UserSearchBar users={users} userHeaders={userHeaders} />
+                    <UserSearchBar users={users} userHeaders={userHeaders} setMembers={setMembers} />
                     </div>
                     {names.map((member) => (
                         <ul className="my-4 text-blueGray-500 text-sm z-0">

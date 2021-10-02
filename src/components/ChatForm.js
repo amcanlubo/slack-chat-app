@@ -20,6 +20,8 @@ const ChatForm = ({ userHeaders }) => {
                 setMessage([])
                 if (response.data.errors) return null;
                 response.data.data.map((message) => setMessage((messages) => [...messages, message]))
+                console.log(response)
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -28,6 +30,16 @@ const ChatForm = ({ userHeaders }) => {
                 setIsLoading(false)
             })
     }
+
+    
+
+    // //offset to maintain time zone difference
+    // const offset = yourDate.getTimezoneOffset();
+
+    // yourDate = new Date(yourDate.getTime() + (offset * 60 * 1000));
+    // let modifiedDate = yourDate.toISOString().split('T')[0]+" "+yourDate.toLocaleTimeString()
+
+    // console.log("Date you want --> ",modifiedDate)
 
     useEffect(() => {
         setIsLoading(true)
@@ -55,16 +67,17 @@ const ChatForm = ({ userHeaders }) => {
 
 
     return (
-        <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
+        <div className="w-100 relative flex-1 p:2 h-screen justify-between flex flex-col z-1">
 
-            <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
+            <div class="absolute top-8 bg-secondary w-full text-white  flex items-center content-center justify-between px-5">
                 {/* //{state.ChannelInfo.channelName} */}
                 {state.ChatInfo.name}
                 {/* <Modal userHeaders={userHeaders} /> */}
                 <RightSideNav userHeaders={userHeaders} />
 
             </div>
-            <form class="absolute bottom-0 w-full bg-secondary z-50">
+
+            <form class="absolute bottom-0 w-full bg-secondary z-0">
                 <input
                     className="message-input w-5/6"
                     placeholder="Send a message..."
@@ -75,24 +88,30 @@ const ChatForm = ({ userHeaders }) => {
             </form>
 
             <div className="flex sm:items-center justify-between border-b-2 border-gray-200 max-h-screen">
-                <div className='container flex flex-col justify-between sm:px-6 overflow-auto  '>
+                <div className='container flex flex-col justify-between sm:px-6'>
 
                     <div class="py-3"></div>
 
                     {!isLoading ?
-                        <div className='flex flex-col py-12'>
-                            <div className="flex-1">
+                    // flex flex-col py-12
+                        <div className='message-form-container overflow-auto h-screen pt-14'>
+                            
                                 {message.map((messages) => (
+                                   
                                     <ul className={(messages.sender.uid === userHeaders.headers.uid)
                                         ?
                                         'chat_bubble outgoing'
                                         :
                                         'chat_bubble incoming'
                                     }>
+                                        <div className='block'>
+                                        {/* {messages.created_at} */}
+                                        {messages.sender.uid} <br/>
                                         {messages.body}
+                                        </div>
                                     </ul>
                                 ))}
-                            </div>
+                            
                         </div>
                         :
                         <>

@@ -36,7 +36,7 @@ const DirectMessage = ({userHeaders}) => {
                 .then((response) => {
                     if (response.data.errors) return null;
                     response.data.data.map((message) => setMessage((messages) => [...messages, message]))
-                    console.log(response.data.data)
+                    // console.log(response.data.data)
                 })
                 .catch((error) => {
                     console.log(error);

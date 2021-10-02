@@ -6,17 +6,15 @@ const Logout = ({userHeaders}) => {
     const history = useHistory();
     const [headers, setHeaders] = useState({userHeaders})
        
-
-    
     function clear() {
         setHeaders([])
-        // sessionStorage.clear();
+        sessionStorage.clear();
         history.push('/login')   
     }
    
     return (
         <>
-            <span className='text-white' onClick={clear}>Logout</span>
+            <span className='text-primary' onClick={clear}>Logout</span>
         </>
     )
 }

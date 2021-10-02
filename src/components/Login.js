@@ -30,6 +30,7 @@ const Login = () => {
                     pathname: '/chatfeed',
                     state: { headers }
                 })
+                //save to session storage
                 sessionStorage.setItem('headers', JSON.stringify(data))
                 console.log(data)
             })

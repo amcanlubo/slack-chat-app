@@ -34,6 +34,7 @@ const SidebarDMs = ({ userHeaders, channels, updateChatForm }) => {
             .then((response) => {
                 if (response.data.data[0]) {
                     setSenderDatas((senderDatas) => [...senderDatas, response.data.data[0]])
+                    // console.log(response.data.data)
                 }
                 // response.data.data[0] ? setSenderDatas((names) => [...names, response.data.data[0].receiver]) : {}
             })
