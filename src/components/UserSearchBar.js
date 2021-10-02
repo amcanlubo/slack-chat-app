@@ -65,7 +65,8 @@ const UserSearchBar = ({ users, userHeaders }) => {
 
         axios.post(`${url}/api/v1/channel/add_member`, {    
         //   'id':'805',
-          'id':state.ChannelInfo.channelID,
+        //   'id':state.ChannelInfo.channelID,
+          'id':state.ChatInfo.ID,
         //   'member_id':'433',
         //   'member_id':'526',
           'member_id':useremail.id,
@@ -76,7 +77,7 @@ const UserSearchBar = ({ users, userHeaders }) => {
               updateMemberList ? setUpdateMemberList(false) : setUpdateMemberList(true)
               console.log(response.data)
               alert("User is added to this channel!");
-            //   userRef.current.value=''
+            
           })
           .catch((error) => alert(error))
         }
@@ -85,7 +86,9 @@ const UserSearchBar = ({ users, userHeaders }) => {
         
     return (
         <>
-            <input type="text" value={searchInput}
+            <input 
+                className="h-6"
+                type="text" value={searchInput}
                 onFocus={() => { formOnFocus() }}
                 onBlur={()=>{
                     formOnFocusOut()
@@ -95,13 +98,13 @@ const UserSearchBar = ({ users, userHeaders }) => {
 
                 }} />
 
-                   <button onClick={addMember} type='submit' 
-            className="bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button onClick={addMember} type='submit' 
+            className="bg-secondary text-white font-bold py-.5 px-4 rounded focus:outline-none focus:shadow-outline">
             +</button>
             <div>
 
-                {searchOutput ? <ul>{filteredData.map((user, index) => (
-                    <li key={index}><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
+                {searchOutput ? <ul className='overflow-auto h-40' >{filteredData.map((user, index) => (
+                    <li key={index} className='overflow-auto'><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
                 ))
 
                 }</ul> : <></>}
