@@ -3,6 +3,7 @@ import { Context } from './Store';
 import axios from 'axios'
 // import {UserGroupIcon} from '@heroicons/react/solid'
 import Modal from './Modal';
+import RightSideNav from './RightSideNav';
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
@@ -11,17 +12,6 @@ const ChatForm = ({ userHeaders }) => {
     const [state, dispatch] = useContext(Context);
     const [isLoading, setIsLoading] = useState(false)
     const [message, setMessage] = useState([])
-
-
-    // useEffect(() => {
-    //     axios.get(`${axios.defaults.baseURL}/api/v1/channels/3`, userHeaders, { 'id': state.ChannelID })
-    //         .then((response) => {
-
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         })
-    // })
 
 
     const getMessage = () => {
@@ -67,13 +57,11 @@ const ChatForm = ({ userHeaders }) => {
     return (
         <div className="w-100 relative flex-1 p:2 max-h-screen justify-between flex flex-col">
 
-            {/* <div class="absolute top-0 bg-secondary w-full text-white z-50">
-                {state.ChatInfo.name} */}
-
             <div class="absolute top-0 bg-secondary w-full text-white z-50 flex items-center content-center justify-between px-5">
                 {/* //{state.ChannelInfo.channelName} */}
                 {state.ChatInfo.name}
-                <Modal userHeaders={userHeaders} />
+                {/* <Modal userHeaders={userHeaders} /> */}
+                <RightSideNav userHeaders={userHeaders} />
 
             </div>
             <form class="absolute bottom-0 w-full bg-secondary z-50">

@@ -16,6 +16,7 @@
 
   html, body {
       height: 100%;
+      color:black;
   }
   h5, h4, h3, h2, h1 {
       font-family: 'Lato', 'sans-serif';

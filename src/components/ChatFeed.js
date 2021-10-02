@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 import RightSideNav from './RightSideNav'
-import TopNav from './TopNav'
+// import TopNav from './TopNav'
 import Sidebar from './Sidebar'
 import ChatForm from './ChatForm'
 
@@ -20,7 +20,7 @@ const ChatFeed = () => {
             {/* <TopNav userHeaders={userHeaders}/> */}
             <Sidebar userHeaders={userHeaders}/>
             <ChatForm userHeaders={userHeaders} />
-            <RightSideNav userHeaders={userHeaders} />
+            {/* <RightSideNav userHeaders={userHeaders} /> */}
          </div>
       </>
     )
