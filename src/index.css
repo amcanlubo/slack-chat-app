@@ -1,16 +1,47 @@
 :root {
-  --color-primary: #f9e000;
+  /* --color-primary: #f9e000; */
+  --color-primary: #fef200;
   --color-secondary: #3b1c1c;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap&family=Paytone+One&display=swap&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* @layer utilities {
 
-} */
+@layer utilities {
+  .hide {
+    transform: scale(0);
+    -webkit-animation: fadeOut .5s;
+    animation: fadeOut .5s;
+}
+
+  .show {
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn .5s;
+  }
+
+@-webkit-keyframes fadeIn {
+from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes fadeIn {
+from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeOut {
+from { opacity: 1; }
+    to { opacity: 0; }
+}
+@keyframes fadeOut {
+from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+}
 
 @layer base {
 
@@ -28,7 +59,12 @@
 
 @layer components {
 
-
+    
+  .text-shadow{
+    text-shadow: 0px 4px 3px rgba(0,0,0,0.6),
+             0px 8px 13px rgba(0,0,0,0.2),
+             0px 18px 23px rgba(0,0,0,0.2);
+  }
   .chat_bubble {
       background:pink;
       display:flex;

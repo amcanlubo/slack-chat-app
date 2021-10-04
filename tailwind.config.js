@@ -5,7 +5,9 @@ module.exports = {
     extend: {
       fontFamily: {
         'Lato' : ['Lato', 'sans-serif'],
-        'Source Sans Pro' : ['Source Sans Pro', 'sans-serif']
+        'Source' : ['Source Sans Pro', 'sans-serif'],
+        'Paytone': ['Paytone One', 'sans-serif'],
+        'Pacifico': ['Pacifico', 'cursive']
       },
       colors: {
         primary: 'var(--color-primary)',

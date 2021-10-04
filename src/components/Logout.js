@@ -9,7 +9,7 @@ const Logout = ({userHeaders}) => {
     function clear() {
         setHeaders([])
         sessionStorage.clear();
-        history.push('/login')   
+        history.push('/')   
     }
    
     return (
