@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store'
 import SidebarDMs from './SidebarDMs'
-// import Logout from './Logout'
 import axios from 'axios'
 
 const Sidebar = ({ userHeaders }) => {

@@ -9,7 +9,6 @@ import {UserGroupIcon} from '@heroicons/react/solid'
 const RightSideNav = ({ userHeaders }) => {
     // console.log(userHeaders)
 
-
     const [state, dispatch] = useContext(Context);
     const [users, setUsers] = useState([]);
     const [members, setMembers] = useState([]);
@@ -79,9 +78,9 @@ const RightSideNav = ({ userHeaders }) => {
       {showModal ? (
         <>
           <div
-            className="text-black justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            className="text-black justify-center  items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-auto my-6 mx-auto max-w-4xl">
               {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}

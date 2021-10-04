@@ -1,9 +1,12 @@
 import React, { useRef } from 'react';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import chimchim from '../images/chimchim.png'
+import {XIcon} from '@heroicons/react/outline'
 
 
-const Login = () => {
+
+const Login = ({setShowLoginModal}) => {
 
     let history = useHistory()
 
@@ -38,16 +41,28 @@ const Login = () => {
             .catch((error) => console.error(error));  
     }
 
-    const handleOnClick = () => {
-        history.push('/signup')
-    }
+    // const handleOnClick = () => {
+    //     history.push('/signup')
+    // }
 
     return (
         <>
-            <div className="container w-full max-w-xs absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 font-Lato bg-primary" onSubmit={handleLogin}>
+            <div className="z-50 container w-full max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                
+                <form className="bg-white shadow-md rounded-lg px-8 pt-4 pb-8 mb-4 font-Lato bg-primary" 
+                onSubmit={handleLogin}>
+                    
+                    <div className='w-full flex justify-center items-center content-center'>    
+                        <img src={chimchim} alt='chimchim' className='h-28' />
+                    </div>
+                    <button
+                    className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowLoginModal(false)}
+                    >
+                    <XIcon className='h-6 w-6 absolute top-8'/>      
+                    </button>  
+                        
                     <div className="mb-4 flex-col">
-                        <h1 className="text-gray-700 text-xl text-center font-bold mb-2" >SIGN IN</h1>
                         <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2" >
                             Email
                         </label>
@@ -63,18 +78,16 @@ const Login = () => {
                     </div>
 
                     <div className="flex items-center justify-between">
-                        <button className="bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">Sign In
-                        </button>
+
+                    <button className="w-full bg-secondary text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                        type="submit">Sign In
+                    </button>
                     </div>
-                    <div className="signup-caption">
-                        No account yet?
-                        <div onClick={handleOnClick}>Sign up here</div>
-                    </div>
+                    {/* <span className="signup-caption mr-1">Don’t have an account?</span>
+                    <span className="font-bold" onClick={handleOnClick}>Sign up here</span>
+                    */}
                 </form>
             </div>
-
-
 
         </>
 
