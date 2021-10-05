@@ -5,6 +5,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap&family=Paytone+One&display=swap&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -19,8 +20,8 @@
 }
 
   .show {
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn .5s;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn .5s;
   }
 
 @-webkit-keyframes fadeIn {
@@ -48,6 +49,8 @@ from { opacity: 1; }
   html, body {
       height: 100%;
       color:black;
+      scroll-behavior:smooth;
+      cursor:pointer;
   }
   h5, h4, h3, h2, h1 {
       font-family: 'Lato', 'sans-serif';
@@ -66,27 +69,27 @@ from { opacity: 1; }
              0px 18px 23px rgba(0,0,0,0.2);
   }
   .chat_bubble {
-      background:pink;
       display:flex;
-      text-align:center;
+      text-align:justify;
       padding: 8px;
       border-radius: 5px;
       margin: 5px;
       position:relative;
   }
   .incoming {
+    font-family: 'Poppins', sans-serif;
     float:left;
-    /* left:0; */
     margin-right: 18px;
-    color:white;
-    background-color:#3b1c1c;
+    color:black;
+    background-color:#ebe4db;
+    
   }
   .outgoing {
+    font-family: 'Poppins', sans-serif;
     float:left;
-    /* right:0;  */
     margin-left: 4px;
-    color:white;
-    background-color:blue;
+    color:black;
+    background-color:#fef200;
   }
 }
 

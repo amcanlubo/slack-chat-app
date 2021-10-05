@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext} from 'react'
 import { Context } from './Store';
 import axios from 'axios'
+import {SearchIcon} from '@heroicons/react/outline'
+import {PlusIcon} from '@heroicons/react/outline'
+
 
 
 const UserSearchBar = ({ users, userHeaders, setMembers }) => {
@@ -65,11 +68,7 @@ const UserSearchBar = ({ users, userHeaders, setMembers }) => {
     const addMember = (e) => {
         e.preventDefault()
         axios.post(`${url}/api/v1/channel/add_member`, {    
-        //   'id':'805',
-        //   'id':state.ChannelInfo.channelID,
           'id':state.ChatInfo.ID,
-        //   'member_id':'433',
-        //   'member_id':'526',
           'member_id':useremail.id,
          }, userHeaders)
 
@@ -89,8 +88,55 @@ const UserSearchBar = ({ users, userHeaders, setMembers }) => {
         
     return (
         <>
-            <input 
+                <div className="form-control">
+                        <label className="label">
+                        <span className="label-text">Add members</span>
+                    </label> 
+                    <div className="relative">
+                        <input 
+                        placeholder="Add a member" 
+                        className="w-full pr-16 input input-primary input-bordered" type="text"
+                        value={searchInput}
+                        onFocus={() => { formOnFocus() }}
+                        onBlur={()=>{
+                            formOnFocusOut()
+                        }}
+                        onChange={(e) => {
+                            setSearchInput(e.target.value)
+                        }} /> 
+                        <button onClick={addMember} type='submit' className="h-full absolute top-0 right-0 rounded-l-none btn btn-primary bg-secondary text-primary hover:text-white">
+                        <PlusIcon className='h-full' /></button>
+                    </div>
+                </div> 
+
+                {/* <input 
+                className="h-6 w-full"
+                placeholder="add a member"
+                type="text" value={searchInput}
+                onFocus={() => { formOnFocus() }}
+                onBlur={()=>{
+                    formOnFocusOut()
+                }}
+                onChange={(e) => {
+                    setSearchInput(e.target.value)
+
+                }} /> */}
+
+            {/* <button onClick={addMember} type='submit' 
+            className="bg-secondary text-white font-bold py-.5 px-4 rounded focus:outline-none focus:shadow-outline">
+            +</button>  
+            </div> */}
+            <div>
+                {searchOutput ? <ul className='overflow-auto h-40 z-10 pt-2' >{filteredData.map((user, index) => (
+                    <li key={index} ><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
+                ))
+
+                }</ul> : <></>}
+            </div>
+        {/* </div> */}
+            {/* <input 
                 className="h-6"
+                placeholder="add a member"
                 type="text" value={searchInput}
                 onFocus={() => { formOnFocus() }}
                 onBlur={()=>{
@@ -103,15 +149,15 @@ const UserSearchBar = ({ users, userHeaders, setMembers }) => {
 
             <button onClick={addMember} type='submit' 
             className="bg-secondary text-white font-bold py-.5 px-4 rounded focus:outline-none focus:shadow-outline">
-            +</button>
-            <div>
+            +</button> */}
+            {/* <div>
 
                 {searchOutput ? <ul className='overflow-auto h-40 z-10' >{filteredData.map((user, index) => (
                     <li key={index} ><button onClick={() => { handleSearchClick(user) }}>{user}</button></li>
                 ))
 
                 }</ul> : <></>}
-            </div>
+            </div> */}
         </>
     )
 }
