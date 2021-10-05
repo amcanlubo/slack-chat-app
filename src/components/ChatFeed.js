@@ -15,7 +15,7 @@ const ChatFeed = () => {
    let userHeaders = location.state
 
    if (!userHeaders) {
-      return <Redirect to="/login"/>
+      return <Redirect to="/"/>
    }
 
 

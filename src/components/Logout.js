@@ -8,6 +8,7 @@ const Logout = ({userHeaders}) => {
        
     function clear() {
         setHeaders([])
+        window.location.reload()
         sessionStorage.clear();
         history.push('/')   
     }
