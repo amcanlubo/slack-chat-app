@@ -52,19 +52,21 @@ const Login = ({setShowLoginModal}) => {
         <>
             <div className="z-50 container w-full max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 
+                    <button
+                        className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        onClick={(e) =>{e.preventDefault()
+                        setShowLoginModal(false)}}
+                        >
+                        <XIcon className='h-8 w-8 mb-16 rounded-full flex items-center justify-center hover:bg-white hover:rounded-full transform hover:scale-110'/>      
+                    </button>  
                 <form className="bg-white shadow-md rounded-lg px-8 py-2 pt-6 pb-8 mb-4 font-Lato bg-primary" 
-                onSubmit={handleLogin}>
+                onSubmit={(e)=>{handleLogin(e)}}>
                     
                     <div className='w-full flex justify-between items-center relative bottom-2'>    
                         <img src={chimchim} alt='chimchim' className='relative left-16 h-28' />
                         <img src={chatbubble} alt='chatbubble' className='relative bottom-2 h-28' />
                         
-                        <button
-                        className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
-                        onClick={() => setShowLoginModal(false)}
-                        >
-                        <XIcon className='h-8 w-8 mb-16 rounded-full flex items-center justify-center hover:bg-white hover:rounded-full transform hover:scale-110'/>      
-                        </button>  
+                        
                     </div>
                     
                     <div className='relative bottom-2'>
@@ -96,6 +98,13 @@ const Login = ({setShowLoginModal}) => {
                     */}
                     </div>
                 </form>
+                    {/* <button
+                        className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
+                        onClick={(e) =>{e.preventDefault()
+                        setShowLoginModal(false)}}
+                        >
+                        <XIcon className='h-8 w-8 mb-16 rounded-full flex items-center justify-center hover:bg-white hover:rounded-full transform hover:scale-110'/>      
+                    </button>   */}
             </div>
 
         </>
