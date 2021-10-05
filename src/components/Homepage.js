@@ -35,7 +35,7 @@ const Homepage = () => {
                     <img src={logo} alt='logo' className='h-80'/>
                     <button onClick={() => setShowLoginModal(true)}
                     className="bg-secondary px-5 py-3 w-40 text-primary transition ease-in-out duration-150
-                    active:bg-pink-600 font-bold uppercase text-sm rounded-full shadow" type="button">Sign in</button>
+                    font-bold uppercase text-sm rounded-full hover:text-white motion-safe:hover:scale-110" type="button">Sign in</button>
 
         {showLoginModal ? (
             <>
@@ -47,7 +47,7 @@ const Homepage = () => {
                             
             <span >Don’t have an account?</span>
             {/* <span onClick={ handleOnClick } className='font-light'>Sign up here</span> */}
-            <span onClick={() => setshowSignupModal(true)} className='font-medium underline'>Sign up here</span>
+            <span onClick={() => setshowSignupModal(true)} className='font-medium text-secondary underline hover:font-bold hover:text-yellow-400'>Sign up here</span>
 
 
             {showSignupModal ? (

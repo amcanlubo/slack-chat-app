@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
 import RightSideNav from './RightSideNav';
+import { SendOutlined } from '@ant-design/icons';
+import {UserCircleIcon} from '@heroicons/react/solid'
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
@@ -42,7 +44,7 @@ const ChatForm = ({ userHeaders }) => {
         let minutes = date.getMinutes();
         let amPm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
-        hours = hours ? hours : 12; // if hour '0' should be '12'
+        hours = hours ? hours : 12; 
 
         if (minutes < 10) {
             minutes = "0" + minutes;
@@ -58,7 +60,6 @@ const ChatForm = ({ userHeaders }) => {
     const addMessage = (e) => {
         e.preventDefault()
         axios.post(`${url}/api/v1/messages`, {
-            // 'receiver_id': state.ChannelID ,
             'receiver_id': state.ChatInfo.ID,
             'receiver_class': state.ChatInfo.receiverClass,
             'body': chatRef.current.value
@@ -75,11 +76,10 @@ const ChatForm = ({ userHeaders }) => {
 
     
     return (
-        <div className="w-100 relative flex-1 p:2 h-screen flex flex-col">
-            
 
-            <div class="z-10 absolute top-8 bg-secondary w-full text-white  flex items-center content-center justify-between px-5">          
-                {state.ChatInfo.name}
+        <div className="w-100 relative flex-1 p:2 h-screen flex flex-col">
+            <div class="z-10 absolute top-6 bg-secondary w-full text-white  flex items-center justify-between">          
+                <div className='pl-6 font-bold text-xl'>{state.ChatInfo.name}</div>
                 <RightSideNav userHeaders={userHeaders} />
             </div>
 
@@ -90,117 +90,126 @@ const ChatForm = ({ userHeaders }) => {
                     type='text'
                     ref={chatRef}
                 />
-                <button type="submit" className="send-button text-white font-semibold ml-10" onClick={addMessage} >SEND</button>
+                {/* <button type="submit" className="send-button text-white font-semibold ml-10" onClick={addMessage} >SEND</button> */}
+                <button type="submit" className="text-white font-semibold ml-16" onClick={addMessage} ><SendOutlined  /></button>
             </form>
             
-            <div className="flex-1 sm:items-center px-5 py-12 overflow-auto h-36 mt-16  z-0 ">
+            <div className="flex-1 sm:items-center px-5 py-12 overflow-auto h-36 mt-16 w-full z-0 ">
                 
-                    {!isLoading ?
-                        <div> 
-                                {message.map((messages) => (
-                                date = new Date(messages.created_at),
-                                time = convTime(messages.created_at),
-                                    <ul className='flex justify-items-start text-left'>
-                                        <div >
-                                        
-                                        <span className='px-1 text-sm'> {messages.sender.uid} </span>
-                                        <span className='px-1 text-sm'> {date.toString().slice(4,16)} </span>
-                                        <span className='px-1 text-sm'> {time} </span><br/>
-
-                                        <span className={(messages.sender.uid === userHeaders.headers.uid)
-                                        ?
-                                        'chat_bubble outgoing'
-                                        :
-                                        'chat_bubble incoming'
-                                        }>
-                                        {messages.body}</span>
+                {!isLoading ?
+                    // <div className='bg-gray-500'> 
+                    <div> 
+                        {message.map((messages) => (
+                            date = new Date(messages.created_at),
+                            time = convTime(messages.created_at),
+                                // <ul className='flex justify-items-start text-left'>
+                                <ul className='flex justify-between '>
+                                    <div className='w-full' >
+                                        <div className='flex items-center'>
+                                            <UserCircleIcon className='h-8 w-8 text-secondary' />
+                                            {/* <UserCircleIcon className={(messages.sender.uid === userHeaders.headers.uid) ? 'h-8 w-8 text-green-500' : 'h-8 w-8 text-red-500'} /> */}
+                                            <span className={(messages.sender.uid === userHeaders.headers.uid)
+                                            ?
+                                            'chat_bubble outgoing text-sm'
+                                            :
+                                            'chat_bubble incoming text-sm'
+                                            }>
+                                            {messages.body}
+                                            </span>
                                         </div>
-                                    </ul>
-                                ))}
-                            
+
+                                        <div>
+                                            <span className='px-1 text-xs'> {messages.sender.uid} </span>
+                                            <span className='px-1 text-xs'> {date.toString().slice(4,16)} </span>
+                                            <span className='px-1 text-xs'> {time} </span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            ))}
+                        
+                    </div>
+                    :
+                    <>
+                        <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
+                                </div>
+                            </div>
                         </div>
-                        :
-                        <>
-                            <div class="animate-pulse flex space-x-4 py-5">
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
+                        <div class="animate-pulse flex space-x-4 py-5">
 
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
-                                </div>
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
                                 </div>
                             </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
 
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
-                                </div>
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
                                 </div>
                             </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
 
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
-                                </div>
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
                                 </div>
                             </div>
-                            <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="animate-pulse flex space-x-4 py-5">
 
-                                <div class="flex-1 space-y-4 py-1">
-                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                    <div class="space-y-2">
-                                        <div class="h-4 bg-yellow-400 rounded"></div>
-                                    </div>
+                            <div class="flex-1 space-y-4 py-1">
+                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                <div class="space-y-2">
+                                    <div class="h-4 bg-yellow-400 rounded"></div>
                                 </div>
-                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
                             </div>
-                        </>
-                    }
-                </div>
+                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                        </div>
+                    </>
+                }
             </div>
+        </div>
        
     )
 }
