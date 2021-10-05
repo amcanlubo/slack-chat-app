@@ -67,8 +67,11 @@ const Sidebar = ({ userHeaders }) => {
 
 
     const addChannel = () => {
-        axios.post(`${axios.defaults.baseURL}/api/v1/channels`, {"name": nameRef.current.value,
-            'user_ids': [], 
+        axios.post(`${axios.defaults.baseURL}/api/v1/channels`, {
+            // "name": "test#12",
+            // 'user_ids': ['sean1@gmail.com', 'sean@gmail.com'],
+            "name": nameRef.current.value,
+            'user_ids': ['sean@gmail.com', 'ahree00@test.com'], 
         }, userHeaders)
             .then(() => {
                 updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
@@ -83,6 +86,7 @@ const Sidebar = ({ userHeaders }) => {
         <>
             
             <div className="bg-primary text-secondary h-screen w-64 py-12">
+            {/* <Logout /> */}
                 <div className="channelsWrap">
                     <div>
                         <input 

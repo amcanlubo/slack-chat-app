@@ -7,9 +7,7 @@ module.exports = {
         'Lato' : ['Lato', 'sans-serif'],
         'Source' : ['Source Sans Pro', 'sans-serif'],
         'Paytone': ['Paytone One', 'sans-serif'],
-        'Pacifico': ['Pacifico', 'cursive'],
-        'Poppins': ['Poppins', 'sans-serif'],
-
+        'Pacifico': ['Pacifico', 'cursive']
       },
       colors: {
         primary: 'var(--color-primary)',

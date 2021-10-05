@@ -14,7 +14,7 @@ const Logout = ({userHeaders}) => {
    
     return (
         <>
-            <span className='text-primary text-sm' onClick={clear}>Logout</span>
+            <span className='text-primary' onClick={clear}>Logout</span>
         </>
     )
 }

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
 import UserSearchBar from './UserSearchBar'
-import {XIcon} from '@heroicons/react/outline'
 
 //Modal
 import {UserGroupIcon} from '@heroicons/react/solid'
@@ -70,7 +69,7 @@ const RightSideNav = ({ userHeaders }) => {
             
        
       <button 
-        className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3 outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 relative right-0"
+        className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3  outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 relative right-0"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -79,63 +78,48 @@ const RightSideNav = ({ userHeaders }) => {
       {showModal ? (
         <>
           <div
-            className="text-black container  w-full max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 inset-0 z-50 outline-none focus:outline-none"
+            className="text-black justify-center  items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-          {/* <div
-            className="text-black z-50 container  w-full max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          > */}
             <div className="relative w-auto my-6 mx-auto max-w-4xl">
-              
+              {/*content*/}
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-               
+                {/*header*/}
                 <div className="flex flex-col items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <div className='w-full flex justify-between items-center content-center'>
-                  
-                    <div className='flex justify-between items-center content-center' >
-                      <span>🔒 </span> 
-                      <span className="text-3xl font-semibold"> 
-                      {state.ChatInfo.name} 
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                      <button
-                      className="text-secondary background-transparent font-bold uppercase text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setShowModal(false)}
-                      >
-                      <XIcon className='h-6 w-6'/>    
-                     </button>
-                    </div>
-
+                  <div className='flex justify-evenly items-center content-center'>
+                    {/* <div><LockClosedIcon /></div> */}
+                    <span>🔒 </span>
+                    <span className="text-3xl  font-semibold px-1"> 
+                    {state.ChatInfo.name} 
+                    </span>
                   </div>
                   
                   <span className="text-gray-500">Members</span>
                   
                 </div>
-               
-                <div className="relative  p-6 flex flex-col max-h-72">
+                {/*body*/}     
+                
+
+                <div class="relative p-6 flex-auto">
                     <div>
                     <UserSearchBar users={users} userHeaders={userHeaders} setMembers={setMembers} />
                     </div>
-                    <div className='z-10 overflow-y-auto'>
                     {names.map((member) => (
-                        <ul className="my-4 overflow-auto text-sm z-0">
+                        <ul className="my-4 text-blueGray-500 text-sm z-0">
                             {member.uid}
                         </ul>
                     ))}
-                    </div>
                 </div>
 
-               
-                {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-secondary background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    <XIcon className='h-6 w-6'/>    
+                    Close
                   </button>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
