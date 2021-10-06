@@ -4,6 +4,29 @@
   --color-secondary: #3b1c1c;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-thumb{
+  border-radius: 10px;
+  background: rgba(0,0,0,0.2);
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background: rgba(0,0,0,0.4);
+}
+
+::-webkit-scrollbar-thumb:active{
+  background: rgba(0,0,0,.9);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Pacifico&display=swap&family=Paytone+One&display=swap&family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
@@ -80,34 +103,38 @@ from { opacity: 1; }
     font-family: 'Poppins', sans-serif;
     float:left;
     margin-right: 18px;
-    color:black;
-    background-color:#ebe4db;
+    color:#3b1c1c;
+    background-color:#FCD34D;
     
   }
   .outgoing {
     font-family: 'Poppins', sans-serif;
     float:left;
     margin-left: 4px;
-    color:black;
-    background-color:#fef200;
+    color:#FCD34D;
+    background-color:#3b1c1c;
   }
 }
 
-#channels label {
+.channels label {
   float:left;
   cursor: pointer;
 }
 
-#channels label span {
+.channels label span {
   display:block;
 }
 
-#channels label input {
+.channels label input {
   position:absolute;
   display: none;
 }
 
-#channels input:checked + span {
-  background-color:#404040;
-  color:#F7F7F7;
+.channels input:checked + span {
+  background-color:#FCD34D;
+  color:#3b1c1c;
+}
+
+svg{
+  height: 1rem;
 }
