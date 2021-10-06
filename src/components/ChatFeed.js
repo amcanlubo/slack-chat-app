@@ -21,7 +21,7 @@ const ChatFeed = () => {
 
    return (
       <>
-         <div className='container flex h-screen w-full'>
+         <div className='flex h-screen w-full'>
             <TopNav userHeaders={userHeaders}/>
             <Sidebar userHeaders={userHeaders}/>
             <ChatForm userHeaders={userHeaders} />

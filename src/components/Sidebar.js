@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store'
 import SidebarDMs from './SidebarDMs'
 import axios from 'axios'
+import { ChevronDownIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/solid'
+import AddChannelModal from './AddChannelModal'
 
 const Sidebar = ({ userHeaders }) => {
     let nameRef = useRef(null)
+    const [addChannelModalToggle, setAddChannelModalToggle] = useState(false)
     const [channels, setChannels] = useState([])
     const [updateChannelList, setUpdateChannelList] = useState(true)
     const [IDState, setIDState] = useState('')
     const [channelsSubMenu, setChannelsSubMenu] = useState(true)
-    const [directMessagesSubMenu, setDirectMessagesSubMenu] = useState(true)
     const [nameState, setNameState] = useState('')
     const [receiverClass, setReceiverClass] = useState('')
     const [state, dispatch] = useContext(Context);
@@ -18,10 +20,10 @@ const Sidebar = ({ userHeaders }) => {
     let chatInfo = {
         'ID': IDState,
         'name': nameState,
-        'receiverClass': receiverClass                                                                                                                      
+        'receiverClass': receiverClass
     }
 
-    const updateChatForm = (ID, name,receiverClass) => {
+    const updateChatForm = (ID, name, receiverClass) => {
         setIDState(ID)
         setNameState(name)
         setReceiverClass(receiverClass)
@@ -29,9 +31,6 @@ const Sidebar = ({ userHeaders }) => {
 
     const handleChannelDropdown = () => {
         channelsSubMenu ? setChannelsSubMenu(false) : setChannelsSubMenu(true)
-    }
-    const handleDirectMessagesDropdown = () => {
-        channelsSubMenu ? setDirectMessagesSubMenu(false) : setDirectMessagesSubMenu(true)
     }
 
     useEffect(() => {
@@ -48,15 +47,15 @@ const Sidebar = ({ userHeaders }) => {
 
                 response.data.data.map((channel) => tempChannels.push(channel))
 
-//                 response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
-//                 // console.log(response.data.data)
-//                 console.log(response)
+                //                 response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
+                //                 // console.log(response.data.data)
+                //                 console.log(response)
 
             })
             .catch((error) => {
                 console.log(error);
             })
-            .finally(()=>{
+            .finally(() => {
                 setChannels(tempChannels)
             })
     }
@@ -67,53 +66,47 @@ const Sidebar = ({ userHeaders }) => {
 
 
     const addChannel = () => {
-        axios.post(`${axios.defaults.baseURL}/api/v1/channels`, {"name": nameRef.current.value,
-            'user_ids': [], 
+        axios.post(`${axios.defaults.baseURL}/api/v1/channels`, {
+            "name": nameRef.current.value,
+            'user_ids': [],
         }, userHeaders)
             .then(() => {
                 updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
                 alert('success');
                 nameRef.current.value = ''
-                
+
             })
             .catch((error) => alert(error))
     }
 
+    const handleAddChannelButtonClick = () => {
+        addChannelModalToggle ? setAddChannelModalToggle(false) : setAddChannelModalToggle(true)
+    }
+
     return (
         <>
-            
-            <div className="bg-primary text-secondary h-screen w-64 py-12">
+            {addChannelModalToggle ? <AddChannelModal handleAddChannelButtonClick={handleAddChannelButtonClick} userHeaders={userHeaders} updateChannelList={updateChannelList} setUpdateChannelList={setUpdateChannelList} /> : <></>}
+            <div className="bg-secondary channels text-white text-opacity-70 overflow-y-scroll  max-h-screen w-64 z-50 pt-2">
                 <div className="channelsWrap">
-                    <div>
-                        <input 
-                            ref={ nameRef } 
-                            type= 'text' 
-                            placeholder='add a channel' 
-                        />
-                        
-                        <button 
-                            onClick={addChannel} 
-                            type='submit' 
-                            className="bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            +
-                        </button>
-                    </div>
 
-                    <div className="w-full text-left font-bold hover:bg-yellow-500 p-1 cursor-pointer" onClick={() => { handleChannelDropdown() }}>
-                        MY CHANNELS
+                    <div className="w-full text-left font-bold p-1 cursor-pointer flex items-center justify-between">
+                        <div onClick={() => { handleChannelDropdown() }} className="hover:text-white flex items-center w-full">
+                            <span className="px-1">
+                                {channelsSubMenu ? <ChevronDownIcon /> : <ChevronRightIcon />}
+                            </span>My Channels
+                        </div>
+                        <div className="hover:text-white" onClick={handleAddChannelButtonClick}><PlusIcon /></div>
                     </div>
                     {channelsSubMenu ?
-                        <div className="border-" id="channels">
-                            {channels.map((channel) => (
-                                <label className="w-full text-left hover:bg-yellow-500" onClick={() => { updateChatForm(channel.id, channel.name, 'Channel') }}>
+                            channels.map((channel) => (
+                                <label className="w-full text-left hover:bg-yellow-900" onClick={() => { updateChatForm(channel.id, channel.name, 'Channel') }}>
                                     <input type="radio" name="channel" />
                                     <span className="pl-3 py-1">{channel.name}</span>
                                 </label>
-                            ))}
-                        </div>
+                            ))
                         : <></>}
                 </div>
-                <SidebarDMs userHeaders={userHeaders} channels={channels} updateChatForm={updateChatForm}/>
+                <SidebarDMs userHeaders={userHeaders} channels={channels} updateChatForm={updateChatForm} />
             </div>
         </>
     )
