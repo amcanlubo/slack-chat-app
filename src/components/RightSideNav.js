@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState,useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
 import UserSearchBar from './UserSearchBar'
 import {XIcon} from '@heroicons/react/outline'
+import Select from 'react-select';
 
 //Modal
 import {UserGroupIcon} from '@heroicons/react/solid'
@@ -15,6 +16,8 @@ const RightSideNav = ({ userHeaders }) => {
     const [members, setMembers] = useState([]);
     const [names, setNames] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    let selectOptions = useRef([])
+    const [selectedOption,setSelectedOption] = useState()
   
 // console.log(state.ChatInfo.name)
     const url = 'https://slackapi.avionschool.com'
@@ -50,13 +53,34 @@ const RightSideNav = ({ userHeaders }) => {
         getMembers()
     }, [state, members])
 
+    const addMember = (e) => {
+      e.preventDefault()
+      axios.post(`${url}/api/v1/channel/add_member`, {    
+        'id':state.ChatInfo.ID,
+        'member_id':selectedOption,
+       }, userHeaders)
+
+        .then((response) => {
+          //   getMembers()
+          //   console.log(response.data)
+          
+        })
+        .catch((error) => alert(error))
+      }
+
 
     
     useEffect(() => {
         axios.get(`${url}/api/v1/users`, userHeaders)
             .then((response) => {
                 // console.log(response.data)
-                setUsers(response.data?.data)
+                response.data.data.map((user)=>{
+                  selectOptions.current.push({
+                    value:user.id,
+                    label:user.uid
+                  })
+                })
+                console.log(selectOptions)
             })
             .catch((error) => {
                 console.log(error);
@@ -115,8 +139,12 @@ const RightSideNav = ({ userHeaders }) => {
                
                 <div className="relative  p-6 flex flex-col max-h-72">
                     <div>
-                    <UserSearchBar users={users} userHeaders={userHeaders} setMembers={setMembers} />
+                    <Select
+                    options={selectOptions.current}
+                    onChange={setSelectedOption}
+                    />
                     </div>
+                    <button onClick={()=>{addMember()}}>+</button>
                     <div className='z-10 overflow-y-auto'>
                     {names.map((member) => (
                         <ul className="my-4 overflow-auto text-sm z-0">

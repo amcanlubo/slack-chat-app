@@ -6,6 +6,7 @@ import { SendOutlined } from '@ant-design/icons';
 import { UserCircleIcon } from '@heroicons/react/solid'
 import ScrollToBottom from './ScrollToBottom';
 import Select from 'react-select';
+import useInterval from './useInterval';
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
@@ -17,9 +18,8 @@ const ChatForm = ({ userHeaders }) => {
     const [users, setUsers] = useState([])
     // const [option,setOption] = useState()
     const [selectedUser, setSelectedUser] = useState()
+    let messageRef = useRef([])
     let enableDMUsers = []
-    let optionSelected
-
     useEffect(() => {
         axios.get(`${axios.defaults.baseURL}/api/v1/users`, userHeaders)
             .then((response) => {
@@ -45,33 +45,71 @@ const ChatForm = ({ userHeaders }) => {
     }
 
     let date, time
+    
     const getMessage = (id, receiverClass) => {
         axios.get(`${url}/api/v1/messages?receiver_id=${id}&receiver_class=${receiverClass}`, userHeaders)
             .then((response) => {
-                setMessage([])
-                if (response.data.errors) return null;
-                response.data.data.map((message) => setMessage((messages) => [...messages, message]))
+                if (messageRef.current.length === 0 || response.data.data[response.data.data.length - 1].id !== messageRef.current[messageRef.current.length - 1].id) {
+                    setMessage([])
+                    messageRef.current = []
+                    if (response.data.errors) return null;
+                    response.data.data.map((message) => {
+                        messageRef.current.push(message)
+                        setMessage((messages) => [...messages, message])
+                    })
+                }
+                setIsLoading(false)
+
 
             })
             .catch((error) => {
                 console.log(error);
             })
-            .finally(() => {
-                setIsLoading(false)
-            })
     }
-
+    // let savedCallback = useRef()
     useEffect(() => {
         setIsLoading(true)
         if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
             getMessage(state.ChatInfo.ID, state.ChatInfo.receiverClass)
         }
-        else if(typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
+        else if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
             getMessage(selectedUser.value.id, 'User')
         }
 
-        convTime()
-    }, [state, selectedUser])
+        return setMessage([])
+    }, [state,selectedUser])
+
+    useInterval(()=>{
+        if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
+            getMessage(state.ChatInfo.ID, state.ChatInfo.receiverClass)
+        }
+        else if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
+            getMessage(selectedUser.value.id, 'User')
+        }
+    },1000)
+
+    
+    // useEffect(() => {
+
+        
+
+    //     // const updateMessages = () => {
+    //     //     if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
+    //     //         getMessage(state.ChatInfo.ID, state.ChatInfo.receiverClass)
+    //     //     }
+    //     //     else if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
+    //     //         getMessage(selectedUser.value.id, 'User')
+    //     //     }
+    //     // }
+
+    //     // savedCallback.current = updateMessages
+
+    //     // setIsLoading(true)
+
+
+
+    //     convTime()
+    // }, [state, selectedUser])
 
 
     const convTime = (time) => {
@@ -128,7 +166,7 @@ const ChatForm = ({ userHeaders }) => {
                     <Select
                         className="w-full px-2 text-secondary outline-none"
                         value={selectedUser}
-                        options={enableDMUsers}
+                        options={state.ChatInfo.name}
                         onChange={handleChange}
                     />
                 }
