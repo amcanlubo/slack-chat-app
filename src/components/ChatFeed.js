@@ -1,13 +1,9 @@
 import React from 'react'
 import { Redirect } from "react-router";
 import { useLocation } from 'react-router'
-import RightSideNav from './RightSideNav'
 import TopNav from './TopNav'
 import Sidebar from './Sidebar'
 import ChatForm from './ChatForm'
-
-// import axios from 'axios'
-
 
 const ChatFeed = () => {
 
@@ -25,7 +21,6 @@ const ChatFeed = () => {
             <TopNav userHeaders={userHeaders}/>
             <Sidebar userHeaders={userHeaders}/>
             <ChatForm userHeaders={userHeaders} />
-            {/* <RightSideNav userHeaders={userHeaders} /> */}
          </div>
       </>
     )

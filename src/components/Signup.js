@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react'
-// import { useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import axios from 'axios'
+import { toast } from 'react-toastify';
 import chimmy from '../images/chimchimmmm.png'
 import {XIcon} from '@heroicons/react/outline'
 
 
 function Signup({setshowSignupModal}) {
 
-    // let history = useHistory()
+    let history = useHistory()
     let emailRef = useRef(null)
     let passwordRef = useRef(null)
     let confirmpasswordRef = useRef(null)
@@ -15,9 +16,12 @@ function Signup({setshowSignupModal}) {
     
 
     const url = 'https://slackapi.avionschool.com'
+    
+    
 
     const handleSignup = (e) => {
         e.preventDefault()
+        
         const data = {
             email: emailRef.current.value,
             password: passwordRef.current.value,
@@ -26,15 +30,33 @@ function Signup({setshowSignupModal}) {
 
         axios.post(`${url}/api/v1/auth/`, data)
             .then((result) => {
+                const userData = {
+                    email: emailRef.current.value,
+                    password: passwordRef.current.value,
+                }
+                axios.post(`${url}/api/v1/auth/sign_in`, userData) 
+
+          
+            .then((data) => {
+                const { headers } = data
                 console.log(result)
                 console.log(data)
-                alert("You are registered.");
-
+                toast.success('You successfully registered')
                 emailRef.current.value=''
                 passwordRef.current.value=''
                 confirmpasswordRef.current.value=''
+                history.push({
+                    pathname: '/chatfeed',
+                    state: { headers }
+                })
+                //save to session storage
+                sessionStorage.setItem('headers', JSON.stringify(data))
+                console.log(data)
             })
-            .catch((error) => console.error(error));
+           
+            .catch((error) => toast.error('Check errors'));               
+            })
+           
     }
 
     // const handleOnClick = () => {
@@ -54,12 +76,12 @@ function Signup({setshowSignupModal}) {
 
                     <img src={chimmy } alt='chimchim' className='h-28' />  
                     <h1 className="text-secondary text-xl font-bold" >CREATE AN ACCOUNT</h1>   
-                    <button
+                    <span
                     className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setshowSignupModal(false)}
                     >
                     <XIcon className='h-8 rounded-full flex items-center justify-center hover:bg-white hover:rounded-full transform hover:scale-110'/>      
-                    </button>  
+                    </span>  
                 </div>
 
                 <div className="mb-6 flex-col">
