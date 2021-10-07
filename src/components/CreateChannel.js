@@ -71,7 +71,7 @@ const CreateChannel = () => {
                 ref={ nameRef }
                 type='text'
                 />
-                <button className="bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                <button className="bg-yellow-500 w-16 hover:bg-yellow-700 text-white px-2 mt-1 font-bold rounded" 
                 type='submit'>+</button>
             </form>
 

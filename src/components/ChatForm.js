@@ -10,6 +10,7 @@ import useInterval from './useInterval';
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
+    let dateRef = useRef(null)
     // console.log(userHeaders)
     const url = 'https://slackapi.avionschool.com'
     const [state, dispatch] = useContext(Context);
@@ -45,7 +46,7 @@ const ChatForm = ({ userHeaders }) => {
     }
 
     let date, time
-    
+
     const getMessage = (id, receiverClass) => {
         axios.get(`${url}/api/v1/messages?receiver_id=${id}&receiver_class=${receiverClass}`, userHeaders)
             .then((response) => {
@@ -77,21 +78,21 @@ const ChatForm = ({ userHeaders }) => {
         }
 
         return setMessage([])
-    }, [state,selectedUser])
+    }, [state, selectedUser])
 
-    useInterval(()=>{
+    useInterval(() => {
         if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
             getMessage(state.ChatInfo.ID, state.ChatInfo.receiverClass)
         }
         else if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
             getMessage(selectedUser.value.id, 'User')
         }
-    },1000)
+    }, 1000)
 
-    
+
     // useEffect(() => {
 
-        
+
 
     //     // const updateMessages = () => {
     //     //     if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
@@ -158,6 +159,8 @@ const ChatForm = ({ userHeaders }) => {
         getMessage(e.value.id, 'User')
     }
 
+    let output = []
+
     return (
 
         <div className="w-100 relative flex-1 p:2 h-screen flex flex-col">
@@ -198,11 +201,20 @@ const ChatForm = ({ userHeaders }) => {
                 {!isLoading ?
                     // <div className='bg-gray-500'> 
                     <div>
-                        {message.map((messages) => (
-                            date = new Date(messages.created_at),
-                            time = convTime(messages.created_at),
+
+                        {message.map((messages, index) => {
+
+                            date = new Date(messages.created_at).toLocaleDateString()
+                            time = convTime(messages.created_at)
+
+                            if (date !== new Date(message[index - 1]?.created_at).toLocaleDateString()) {
+                                output.push(<div>{date}</div>)
+                                // output1 =<div>{date}</div>
+
+                            }
+
                             // <ul className='flex justify-items-start text-left'>
-                            <ul className='flex justify-between '>
+                            output.push(<ul className='flex justify-between '>
                                 <div className='w-full' >
                                     <div className='flex items-center'>
                                         <UserCircleIcon className='h-8 w-8 text-secondary' />
@@ -219,12 +231,14 @@ const ChatForm = ({ userHeaders }) => {
 
                                     <div>
                                         <span className='px-1 text-xs'> {messages.sender.uid} </span>
-                                        <span className='px-1 text-xs'> {date.toString().slice(4, 16)} </span>
+                                        <span className='px-1 text-xs'> {date} </span>
                                         <span className='px-1 text-xs'> {time} </span>
                                     </div>
                                 </div>
-                            </ul>
-                        ))}
+                            </ul>)
+
+                            return output
+                        })}
 
                     </div>
                     :

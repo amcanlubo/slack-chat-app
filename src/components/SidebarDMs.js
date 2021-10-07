@@ -131,7 +131,7 @@ const SidebarDMs = ({ userHeaders, channels, updateChatForm }) => {
     useInterval(() => {
         getAllUsers()
         getChannelMembersInbox()
-    }, 2000)
+    }, 5000)
 
     const getChannelMembersInbox = () => {
         allUserIDs.current.map((user) => {
