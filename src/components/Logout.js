@@ -10,6 +10,7 @@ const Logout = ({userHeaders}) => {
         setHeaders([])
         window.location.reload()
         sessionStorage.clear();
+        localStorage.clear();
         history.push('/')   
     }
    
