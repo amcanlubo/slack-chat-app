@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     screens: {
 
-      'mobile': '400px',
-      // => @media (min-width: 400px) { ... }
+      'mobile': '640px',
+      // => @media (min-width: 480px) { ... }
 
-      'tablet': '640px',
+      'tablet': '768px',
       // => @media (min-width: 640px) { ... }
 
       'laptop': '1024px',

@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { Context } from './Store'
-import SidebarDMs from './SidebarDMs'
 import axios from 'axios'
 import { ChevronDownIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/solid'
 import AddChannelModal from './AddChannelModal'
+import { Context } from './Store'
+import SidebarDMs from './SidebarDMs'
+import {XIcon} from '@heroicons/react/outline'
 
 const Sidebar = ({ userHeaders }) => {
+    
     let nameRef = useRef(null)
     const [addChannelModalToggle, setAddChannelModalToggle] = useState(false)
     const [channels, setChannels] = useState([])
@@ -15,6 +17,7 @@ const Sidebar = ({ userHeaders }) => {
     const [nameState, setNameState] = useState('')
     const [receiverClass, setReceiverClass] = useState('')
     const [state, dispatch] = useContext(Context);
+    const [sidebar, setSidebar] = useState(false);
     let tempChannels = []
 
     let chatInfo = {
@@ -47,9 +50,9 @@ const Sidebar = ({ userHeaders }) => {
 
                 response.data.data.map((channel) => tempChannels.push(channel))
 
-                //                 response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
-                //                 // console.log(response.data.data)
-                //                 console.log(response)
+                //   response.data.data.map((channel) => setChannels((channels) => [...channels, channel]))
+                //   console.log(response.data.data)
+                //   console.log(response)
 
             })
             .catch((error) => {
@@ -84,7 +87,15 @@ const Sidebar = ({ userHeaders }) => {
     }
 
     return (
+
         <div className="absolute inset-y-0 left-0 z-50 -translate-x-full transform  transition duration-200 ease-in-out mobile:translate-x-0 mobile:relative">
+            
+            <div className='mobile:block tablet:hidden desktop:hidden'>
+                <button onClick={() => setSidebar(false)}>
+                    <XIcon className=' h-8 pl-4'/>
+                </button>
+            </div>
+            
             {addChannelModalToggle ? <AddChannelModal handleAddChannelButtonClick={handleAddChannelButtonClick} userHeaders={userHeaders} updateChannelList={updateChannelList} setUpdateChannelList={setUpdateChannelList} /> : <></>}
             <div className="bg-secondary channels text-white text-opacity-70 overflow-y-scroll h-screen w-64 z-50 pt-2">
                 <div className="channelsWrap">

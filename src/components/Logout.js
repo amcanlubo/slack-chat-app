@@ -16,7 +16,7 @@ const Logout = ({userHeaders}) => {
    
     return (
         <>
-            <span className='text-primary text-sm' onClick={clear}>Logout</span>
+            <span className='hover:text-secondary text-primary text-sm' onClick={clear}>Logout</span>
         </>
     )
 }

@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 
 
 const Login = ({setShowLoginModal}) => {
-    const [user, setUser] = useState()
+
+    
     const [rememberme, setRememberMe] = useState(false)
     
     let history = useHistory()
@@ -31,14 +32,21 @@ const Login = ({setShowLoginModal}) => {
             .then((data) => {     
                 toast.success('You successfully logged in')
                 const { headers } = data
-                setUser(data.data)
+                
                 history.push({
                     pathname: '/chatfeed',
                     state: { headers }
+
+
                 })
                 //save to session storage and local storage
                 sessionStorage.setItem('headers', JSON.stringify(data))
-                localStorage.setItem('user', JSON.stringify(data.data))
+
+                if (rememberme) {
+                    localStorage.email=userData.email
+                    localStorage.password=userData.password
+                }
+
                 console.log(data)
             })
             
@@ -46,15 +54,7 @@ const Login = ({setShowLoginModal}) => {
             .catch((error) => toast.error('Check errors'))
         }
 
-        useEffect(() => {
-            const loggedInUser = localStorage.getItem("user");
-            if (loggedInUser) {
-              const foundUser = JSON.parse(loggedInUser);
-              setUser(foundUser);
-            }
-          }, []);
-    
-
+       
     return (
         <>
         
@@ -93,8 +93,14 @@ const Login = ({setShowLoginModal}) => {
                     </div>
                     
                     <div className='h-12 justify-center items-center content-center'>
-                        <input type="checkbox" className='mr-2'/>    
-                        <span class="checkmark">Keep me logged in</span>  
+                        
+                        <input type="checkbox" 
+                        className='mr-2' 
+                        checked ={rememberme}
+                        onChange={()=>{setRememberMe(!rememberme)}}
+                        />    
+
+                        <span className="checkmark">Keep me logged in</span>  
                     </div>
 
                     <div className="flex items-center justify-between">

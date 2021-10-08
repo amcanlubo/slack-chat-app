@@ -75,7 +75,7 @@ function Signup({setshowSignupModal}) {
                 <div className='relative bottom-5 right-2 w-full flex justify-between items-center content-center'>
 
                     <img src={chimmy } alt='chimchim' className='h-28' />  
-                    <h1 className="text-secondary text-xl font-bold" >CREATE AN ACCOUNT</h1>   
+                    <h1 className="text-secondary desktop:text-2xl mobile:text-xs font-bold mr-4" >CREATE AN ACCOUNT</h1>   
                     <span
                     className="bg-transparent border-0 text-secondary text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setshowSignupModal(false)}
