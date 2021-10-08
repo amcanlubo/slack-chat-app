@@ -4,7 +4,7 @@ import axios from 'axios'
 import UserSearchBar from './UserSearchBar'
 import { XIcon } from '@heroicons/react/outline'
 import Select from 'react-select';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 //Modal
 import { UserGroupIcon } from '@heroicons/react/solid'
@@ -100,22 +100,6 @@ const RightSideNav = ({ userHeaders }) => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      {/* Same as */}
-      <ToastContainer />
-
-
-
       <button
         className="text-white active:text-primary font-bold uppercase text-sm px-6 py-3 outline-none focus:outline-none mb-1 ease-linear transition-all duration-150 relative right-0"
         type="button"

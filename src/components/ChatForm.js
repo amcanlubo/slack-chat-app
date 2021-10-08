@@ -2,15 +2,20 @@ import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
 import RightSideNav from './RightSideNav';
-import { SendOutlined } from '@ant-design/icons';
 import { UserCircleIcon } from '@heroicons/react/solid'
 import ScrollToBottom from './ScrollToBottom';
 import Select from 'react-select';
 import useInterval from './useInterval';
+import NoChatVector from '../images/NoChatYet.svg'
+import {MenuIcon} from '@heroicons/react/outline'
+// import Sidebar from './Sidebar';
+
 
 const ChatForm = ({ userHeaders }) => {
     let chatRef = useRef(null)
-    let dateRef = useRef(null)
+    // let dateRef = useRef(null)
+    let messageRef = useRef([])
+    let enableDMUsers = []
     // console.log(userHeaders)
     const url = 'https://slackapi.avionschool.com'
     const [state, dispatch] = useContext(Context);
@@ -19,8 +24,10 @@ const ChatForm = ({ userHeaders }) => {
     const [users, setUsers] = useState([])
     // const [option,setOption] = useState()
     const [selectedUser, setSelectedUser] = useState()
-    let messageRef = useRef([])
-    let enableDMUsers = []
+    const [sidebar, setSidebar] = useState(false);
+    
+
+
     useEffect(() => {
         axios.get(`${axios.defaults.baseURL}/api/v1/users`, userHeaders)
             .then((response) => {
@@ -50,9 +57,8 @@ const ChatForm = ({ userHeaders }) => {
     const getMessage = (id, receiverClass) => {
         axios.get(`${url}/api/v1/messages?receiver_id=${id}&receiver_class=${receiverClass}`, userHeaders)
             .then((response) => {
-                if (messageRef.current.length === 0 || response.data.data[response.data.data.length - 1].id !== messageRef.current[messageRef.current.length - 1].id) {
+                if (messageRef.current.length === 0 || response.data.data.length !== messageRef.current.length) {
                     setMessage([])
-                    messageRef.current = []
                     if (response.data.errors) return null;
                     response.data.data.map((message) => {
                         messageRef.current.push(message)
@@ -90,28 +96,6 @@ const ChatForm = ({ userHeaders }) => {
     }, 1000)
 
 
-    // useEffect(() => {
-
-
-
-    //     // const updateMessages = () => {
-    //     //     if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
-    //     //         getMessage(state.ChatInfo.ID, state.ChatInfo.receiverClass)
-    //     //     }
-    //     //     else if (typeof state.ChatInfo.name !== 'object' || state.ChatInfo.ID !== null) {
-    //     //         getMessage(selectedUser.value.id, 'User')
-    //     //     }
-    //     // }
-
-    //     // savedCallback.current = updateMessages
-
-    //     // setIsLoading(true)
-
-
-
-    //     convTime()
-    // }, [state, selectedUser])
-
 
     const convTime = (time) => {
         let date = new Date(time)
@@ -147,7 +131,7 @@ const ChatForm = ({ userHeaders }) => {
                     getMessage(selectedUser.value.id, 'User')
 
                 }
-                // updateChannelList ? setUpdateChannelList(false) : setUpdateChannelList(true);
+               
                 // console.log(userHeaders)
                 chatRef.current.value = ''
             })
@@ -159,12 +143,21 @@ const ChatForm = ({ userHeaders }) => {
         getMessage(e.value.id, 'User')
     }
 
+    
     let output = []
 
     return (
-
-        <div className="w-100 relative flex-1 p:2 h-screen flex flex-col">
-            <div class="z-10 absolute top-6 bg-yellow-300 w-full text-white flex items-center justify-between">
+   
+        <div className="flex h-full overflow-auto flex-col">
+            <div class="z-10 bg-yellow-300 text-white sticky top-0 flex items-center justify-between">
+                
+                <div className='mobile:block tablet:hidden desktop:hidden'>
+                {/* <button onClick={() => setSidebar(!sidebar)}> */}
+                <button onClick={() => setSidebar(true)}>
+                    <MenuIcon className=' h-8 pl-4'/>
+                </button>
+                </div>
+                
                 {typeof state.ChatInfo.name !== 'object' ? <div className='pl-6 font-bold text-xl'>{state.ChatInfo.name}</div> :
                     <Select
                         className="w-full px-2 text-secondary outline-none"
@@ -174,156 +167,192 @@ const ChatForm = ({ userHeaders }) => {
                     />
                 }
 
-                <RightSideNav userHeaders={userHeaders} />
+            {!state.ChatInfo.receiverClass  ? <></>  : <RightSideNav userHeaders={userHeaders} />}
             </div>
 
-            <form class="absolute bottom-0 w-full bg-secondary z-10">
-                <input
-                    className="message-input w-5/6"
-                    placeholder="Send a message..."
-                    type='text'
-                    ref={chatRef}
-                />
-                {/* <button type="submit" className="send-button text-white font-semibold ml-10" onClick={addMessage} >SEND</button> */}
-                <button type="submit" className="text-white font-semibold ml-16" onClick={(e) => {
-                    if (typeof state.ChatInfo.name === 'object') {
-                        addMessage(e, selectedUser.value.id)
-                    }
-                    else {
-                        addMessage(e, state.ChatInfo.ID)
-                    }
+            <div className="flex-1 flex flex-col">
+                <div className="h-full sm:items-center px-5 bg-yellow-100 w-full z-0 ">
 
-                }} ><SendOutlined /></button>
-            </form>
-
-            <div className="flex-1 sm:items-center px-5 py-12 overflow-auto bg-yellow-100 h-36 mt-16 w-full z-0 ">
-
-                {!isLoading ?
-                    // <div className='bg-gray-500'> 
-                    <div>
-
-                        {message.map((messages, index) => {
-
-                            date = new Date(messages.created_at).toLocaleDateString()
-                            time = convTime(messages.created_at)
-
-                            if (date !== new Date(message[index - 1]?.created_at).toLocaleDateString()) {
-                                output.push(<div>{date}</div>)
-                                // output1 =<div>{date}</div>
-
-                            }
-
-                            // <ul className='flex justify-items-start text-left'>
-                            output.push(<ul className='flex justify-between '>
-                                <div className='w-full' >
-                                    <div className='flex items-center'>
-                                        <UserCircleIcon className='h-8 w-8 text-secondary' />
-                                        {/* <UserCircleIcon className={(messages.sender.uid === userHeaders.headers.uid) ? 'h-8 w-8 text-green-500' : 'h-8 w-8 text-red-500'} /> */}
-                                        <span className={(messages.sender.uid === userHeaders.headers.uid)
-                                            ?
-                                            'chat_bubble outgoing text-sm shadow-md'
-                                            :
-                                            'chat_bubble incoming text-sm shadow-md'
-                                        }>
-                                            {messages.body}
-                                        </span>
-                                    </div>
-
-                                    <div>
-                                        <span className='px-1 text-xs'> {messages.sender.uid} </span>
-                                        <span className='px-1 text-xs'> {date} </span>
-                                        <span className='px-1 text-xs'> {time} </span>
-                                    </div>
-                                </div>
-                            </ul>)
-
-                            return output
-                        })}
-
+                    {state.ChatInfo.receiverClass !== 'Channel' ? 
+                    <div className='h-full relative flex flex-col justify-center text-center items-center content-center'>
+                    <img src={NoChatVector} alt='no chat' className='h-80'/>
+                    <span className='pt-8 text-md mobile:text-center font-Poppins font-bold text-yellow-300'>Select a channel/user to begin chatting</span> 
                     </div>
-                    :
-                    <>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
+                    :   !isLoading ?
+                        
+                        <div>
 
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
+                            {message.map((messages, index) => {
+                                output=[]
+                                // date = new Date(messages.created_at).toLocaleDateString()
+                                date = new Date(messages.created_at).toDateString().slice(0,15)
+                                time = convTime(messages.created_at)
 
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
+                                if (date !== new Date(message[index - 1]?.created_at).toDateString()) {
+                                // if (date !== new Date(message[index - 1]?.created_at).toLocaleDateString()) {
+                                    // output.push(<div>{date}</div>)
+                                    // output1 =<div>{date}</div>
 
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
+                                    output.push(
+                                        <div className='w-full flex justify-center items-center pt-2'>
+                                            <hr className='flex-1 border-solid border-secondary'/>
+                                            <div className='w-auto px-1 border border-secondary rounded-full flex justify-center items-center content-center'>     
+                                                <span className='text-xs'> {date} </span>
+                                            </div>
+                                            <hr className='flex-1 border-solid border-secondary'/>
+                                        </div>)
+                                }
 
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
+                                output.push(<ul className='flex justify-between'>
+                                    <div className='w-full' >
+                                        <div className='flex content-center items-center'>
+                                            <UserCircleIcon className='h-10 w-10 text-secondary' />
+                                            <div className='flex flex-col'>
+                                            <div className='flex'>
+                                            <span className='px-1 text-xs font-bold'> {messages.sender.uid} </span>
+                                            {/* <span className='px-1 text-xs'> {date} </span> */}
+                                            <span className='text-xs'> {time} </span>
+                                        </div>
+                                            
+                                            <span className={(messages.sender.uid === userHeaders.headers.uid)
+                                                ?
+                                                'chat_bubble outgoing text-sm shadow-md'
+                                                :
+                                                'chat_bubble incoming text-sm shadow-md'
+                                            }>
+                                                {messages.body}
+                                            </span>
+                                        </div>
+                                        </div>
+
+                                        
+                                    </div>
+                                </ul>)
+
+                                return output
+                            })}
+
+                        </div>
+                        :
+                        <>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                    </>
-                }
-                <ScrollToBottom userHeaders={userHeaders} />
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                        </>
+                    }
+                    <ScrollToBottom userHeaders={userHeaders} />
+                    
+                    
+                </div>
+
             </div>
+
+            <form className="flex-1w-full sticky bottom-0 bg-secondary z-10">
+                <div className="p-2 sm:mb-0">
+                    <div className="relative flex">
+                        <span className="absolute inset-y-0 right-0 flex items-center justify-center content-center px-1">
+                            <button 
+                            type="submit" 
+                            className="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none"
+                            onClick={(e) => {
+                            if (typeof state.ChatInfo.name === 'object') {
+                                addMessage(e, selectedUser.value.id)
+                            }
+                            else {
+                                addMessage(e, state.ChatInfo.ID)
+                            }
+                            }}>
+                            
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-6 w-6 transform rotate-90">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                            </svg>
+                            </button>
+                        </span>
+
+                        <input 
+                        type="text" 
+                        placeholder="Write Something..." 
+                        className="w-full h-10 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-8 bg-gray-200 rounded-full py-3"
+                        ref={chatRef}
+                        />
+                    </div>
+                </div>
+            </form>
         </div>
+   
 
     )
 }
