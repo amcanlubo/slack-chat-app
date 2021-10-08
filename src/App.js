@@ -1,6 +1,7 @@
 import React from 'react'
 import Store from './components/Store'
-import { Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+// import { Switch, Route } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <>
+    <Router>
       <Store>
         <Switch>
           <Route exact path="/home"><Homepage /></Route>
@@ -27,6 +29,7 @@ const App = () => {
           <Route exact path="/"><Homepage /></Route>
         </Switch>
       </Store>
+      </Router>
       <ToastContainer theme='colored'/>
     </>
   )
