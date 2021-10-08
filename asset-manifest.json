@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/slack-chat-app/static/css/main.7663af50.chunk.css",
+    "main.js": "/slack-chat-app/static/js/main.eaef6370.chunk.js",
+    "main.js.map": "/slack-chat-app/static/js/main.eaef6370.chunk.js.map",
+    "runtime-main.js": "/slack-chat-app/static/js/runtime-main.900c0065.js",
+    "runtime-main.js.map": "/slack-chat-app/static/js/runtime-main.900c0065.js.map",
+    "static/css/2.123f092d.chunk.css": "/slack-chat-app/static/css/2.123f092d.chunk.css",
+    "static/js/2.658f5b3c.chunk.js": "/slack-chat-app/static/js/2.658f5b3c.chunk.js",
+    "static/js/2.658f5b3c.chunk.js.map": "/slack-chat-app/static/js/2.658f5b3c.chunk.js.map",
+    "index.html": "/slack-chat-app/index.html",
+    "static/css/2.123f092d.chunk.css.map": "/slack-chat-app/static/css/2.123f092d.chunk.css.map",
+    "static/css/main.7663af50.chunk.css.map": "/slack-chat-app/static/css/main.7663af50.chunk.css.map",
+    "static/js/2.658f5b3c.chunk.js.LICENSE.txt": "/slack-chat-app/static/js/2.658f5b3c.chunk.js.LICENSE.txt",
+    "static/media/BT21.42c38516.gif": "/slack-chat-app/static/media/BT21.42c38516.gif",
+    "static/media/NoChatYet.281bc00c.svg": "/slack-chat-app/static/media/NoChatYet.281bc00c.svg",
+    "static/media/bubble.d07a5634.png": "/slack-chat-app/static/media/bubble.d07a5634.png",
+    "static/media/chatbubble.26d29a27.png": "/slack-chat-app/static/media/chatbubble.26d29a27.png",
+    "static/media/chim2.f3835cfe.png": "/slack-chat-app/static/media/chim2.f3835cfe.png",
+    "static/media/chimchimmmm.6861fe93.png": "/slack-chat-app/static/media/chimchimmmm.6861fe93.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.900c0065.js",
+    "static/css/2.123f092d.chunk.css",
+    "static/js/2.658f5b3c.chunk.js",
+    "static/css/main.7663af50.chunk.css",
+    "static/js/main.eaef6370.chunk.js"
+  ]
+}
