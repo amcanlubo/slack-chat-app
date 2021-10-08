@@ -237,7 +237,7 @@ const SidebarDMs = ({ userHeaders, channels, updateChatForm }) => {
                     })}
                 </>
                 : <></>}
-            <span className="w-full flex justify-center align-center py-2"><button className="w-11/12 rounded-full text-center text-secondary bg-yellow-300 hover:bg-yellow-400  py-2" onClick={() => { updateChatForm(null, dmEnabledUsers, 'User') }}>New Message</button></span>
+            <span className="w-full flex sticky bottom-0  justify-center align-center py-2"><button className="w-11/12 rounded-full text-center text-secondary bg-yellow-300 hover:bg-yellow-400  py-2" onClick={() => { updateChatForm(null, dmEnabledUsers, 'User') }}>New Message</button></span>
 
         </div>
     )

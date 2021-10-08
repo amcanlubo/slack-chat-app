@@ -84,9 +84,9 @@ const Sidebar = ({ userHeaders }) => {
     }
 
     return (
-        <>
+        <div className="absolute inset-y-0 left-0 z-50 -translate-x-full transform  transition duration-200 ease-in-out mobile:translate-x-0 mobile:relative">
             {addChannelModalToggle ? <AddChannelModal handleAddChannelButtonClick={handleAddChannelButtonClick} userHeaders={userHeaders} updateChannelList={updateChannelList} setUpdateChannelList={setUpdateChannelList} /> : <></>}
-            <div className="bg-secondary channels text-white text-opacity-70 overflow-y-scroll  max-h-screen w-64 z-50 pt-2">
+            <div className="bg-secondary channels text-white text-opacity-70 overflow-y-scroll h-screen w-64 z-50 pt-2">
                 <div className="channelsWrap">
 
                     <div className="w-full text-left font-bold p-1 cursor-pointer flex items-center justify-between">
@@ -108,7 +108,7 @@ const Sidebar = ({ userHeaders }) => {
                 </div>
                 <SidebarDMs userHeaders={userHeaders} channels={channels} updateChatForm={updateChatForm} />
             </div>
-        </>
+        </div>
     )
 }
 

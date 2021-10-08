@@ -50,9 +50,8 @@ const ChatForm = ({ userHeaders }) => {
     const getMessage = (id, receiverClass) => {
         axios.get(`${url}/api/v1/messages?receiver_id=${id}&receiver_class=${receiverClass}`, userHeaders)
             .then((response) => {
-                if (messageRef.current.length === 0 || response.data.data[response.data.data.length - 1].id !== messageRef.current[messageRef.current.length - 1].id) {
+                if (messageRef.current.length === 0 || response.data.data.length !== messageRef.current.length) {
                     setMessage([])
-                    messageRef.current = []
                     if (response.data.errors) return null;
                     response.data.data.map((message) => {
                         messageRef.current.push(message)
@@ -162,9 +161,8 @@ const ChatForm = ({ userHeaders }) => {
     let output = []
 
     return (
-
-        <div className="w-100 relative flex-1 p:2 h-screen flex flex-col">
-            <div class="z-10 absolute top-6 bg-yellow-300 w-full text-white flex items-center justify-between">
+        <div className="flex h-full  overflow-auto flex-col">
+            <div class="z-10 bg-yellow-300 text-white sticky top-0 flex items-center justify-between">
                 {typeof state.ChatInfo.name !== 'object' ? <div className='pl-6 font-bold text-xl'>{state.ChatInfo.name}</div> :
                     <Select
                         className="w-full px-2 text-secondary outline-none"
@@ -176,8 +174,137 @@ const ChatForm = ({ userHeaders }) => {
 
                 <RightSideNav userHeaders={userHeaders} />
             </div>
+            <div className="flex-1 flex flex-col">
 
-            <form class="absolute bottom-0 w-full bg-secondary z-10">
+                <div className="flex-1 sm:items-center px-5 bg-yellow-100 w-full z-0 ">
+
+                    {!isLoading ?
+                        // <div className='bg-gray-500'> 
+                        <div>
+
+                            {message.map((messages, index) => {
+                                output=[]
+                                date = new Date(messages.created_at).toLocaleDateString()
+                                time = convTime(messages.created_at)
+
+                                if (date !== new Date(message[index - 1]?.created_at).toLocaleDateString()) {
+                                    output.push(<div>{date}</div>)
+                                    // output1 =<div>{date}</div>
+
+                                }
+
+                                // <ul className='flex justify-items-start text-left'>
+                                output.push(<ul className='flex justify-between '>
+                                    <div className='w-full' >
+                                        <div className='flex items-center'>
+                                            <UserCircleIcon className='h-8 w-8 text-secondary' />
+                                            {/* <UserCircleIcon className={(messages.sender.uid === userHeaders.headers.uid) ? 'h-8 w-8 text-green-500' : 'h-8 w-8 text-red-500'} /> */}
+                                            <span className={(messages.sender.uid === userHeaders.headers.uid)
+                                                ?
+                                                'chat_bubble outgoing text-sm shadow-md'
+                                                :
+                                                'chat_bubble incoming text-sm shadow-md'
+                                            }>
+                                                {messages.body}
+                                            </span>
+                                        </div>
+
+                                        <div>
+                                            <span className='px-1 text-xs'> {messages.sender.uid} </span>
+                                            <span className='px-1 text-xs'> {date} </span>
+                                            <span className='px-1 text-xs'> {time} </span>
+                                        </div>
+                                    </div>
+                                </ul>)
+
+                                return output
+                            })}
+
+                        </div>
+                        :
+                        <>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="animate-pulse flex space-x-4 py-5">
+
+                                <div class="flex-1 space-y-4 py-1">
+                                    <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
+                                    <div class="space-y-2">
+                                        <div class="h-4 bg-yellow-400 rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
+                            </div>
+                        </>
+                    }
+                    <ScrollToBottom userHeaders={userHeaders} />
+                </div>
+            </div>
+            <form class="w-full sticky bottom-0 bg-secondary z-10">
                 <input
                     className="message-input w-5/6"
                     placeholder="Send a message..."
@@ -195,134 +322,6 @@ const ChatForm = ({ userHeaders }) => {
 
                 }} ><SendOutlined /></button>
             </form>
-
-            <div className="flex-1 sm:items-center px-5 py-12 overflow-auto bg-yellow-100 h-36 mt-16 w-full z-0 ">
-
-                {!isLoading ?
-                    // <div className='bg-gray-500'> 
-                    <div>
-
-                        {message.map((messages, index) => {
-
-                            date = new Date(messages.created_at).toLocaleDateString()
-                            time = convTime(messages.created_at)
-
-                            if (date !== new Date(message[index - 1]?.created_at).toLocaleDateString()) {
-                                output.push(<div>{date}</div>)
-                                // output1 =<div>{date}</div>
-
-                            }
-
-                            // <ul className='flex justify-items-start text-left'>
-                            output.push(<ul className='flex justify-between '>
-                                <div className='w-full' >
-                                    <div className='flex items-center'>
-                                        <UserCircleIcon className='h-8 w-8 text-secondary' />
-                                        {/* <UserCircleIcon className={(messages.sender.uid === userHeaders.headers.uid) ? 'h-8 w-8 text-green-500' : 'h-8 w-8 text-red-500'} /> */}
-                                        <span className={(messages.sender.uid === userHeaders.headers.uid)
-                                            ?
-                                            'chat_bubble outgoing text-sm shadow-md'
-                                            :
-                                            'chat_bubble incoming text-sm shadow-md'
-                                        }>
-                                            {messages.body}
-                                        </span>
-                                    </div>
-
-                                    <div>
-                                        <span className='px-1 text-xs'> {messages.sender.uid} </span>
-                                        <span className='px-1 text-xs'> {date} </span>
-                                        <span className='px-1 text-xs'> {time} </span>
-                                    </div>
-                                </div>
-                            </ul>)
-
-                            return output
-                        })}
-
-                    </div>
-                    :
-                    <>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="animate-pulse flex space-x-4 py-5">
-
-                            <div class="flex-1 space-y-4 py-1">
-                                <div class="h-4 bg-yellow-400 rounded w-3/4"></div>
-                                <div class="space-y-2">
-                                    <div class="h-4 bg-yellow-400 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="rounded-full bg-yellow-400 h-12 w-12"></div>
-                        </div>
-                    </>
-                }
-                <ScrollToBottom userHeaders={userHeaders} />
-            </div>
         </div>
 
     )

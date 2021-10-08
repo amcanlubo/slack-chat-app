@@ -11,19 +11,23 @@ const ChatFeed = () => {
    let userHeaders = location.state
 
    if (!userHeaders) {
-      return <Redirect to="/"/>
+      return <Redirect to="/" />
    }
 
 
    return (
       <>
-         <div className='flex h-screen w-full'>
-            <TopNav userHeaders={userHeaders}/>
-            <Sidebar userHeaders={userHeaders}/>
-            <ChatForm userHeaders={userHeaders} />
+         <div className='flex'>
+         <Sidebar userHeaders={userHeaders} />
+            <div className="flex flex-col w-full h-screen">
+               <TopNav userHeaders={userHeaders} />
+               <ChatForm userHeaders={userHeaders} />
+            </div>
+            
+
          </div>
       </>
-    )
+   )
 }
 
 export default ChatFeed
