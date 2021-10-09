@@ -6,18 +6,17 @@ import { Context } from './Store'
 import SidebarDMs from './SidebarDMs'
 import {XIcon} from '@heroicons/react/outline'
 
-const Sidebar = ({ userHeaders }) => {
+const Sidebar = ({ userHeaders,toggleSidebar }) => {
     
     let nameRef = useRef(null)
     const [addChannelModalToggle, setAddChannelModalToggle] = useState(false)
     const [channels, setChannels] = useState([])
     const [updateChannelList, setUpdateChannelList] = useState(true)
     const [IDState, setIDState] = useState('')
-    const [channelsSubMenu, setChannelsSubMenu] = useState(true)
+    const [channelsSubMenu, setChannelsSubMenu] = useState(false)
     const [nameState, setNameState] = useState('')
     const [receiverClass, setReceiverClass] = useState('')
     const [state, dispatch] = useContext(Context);
-    const [sidebar, setSidebar] = useState(false);
     let tempChannels = []
 
     let chatInfo = {
@@ -87,16 +86,16 @@ const Sidebar = ({ userHeaders }) => {
     }
 
     return (
+        <>
+        {addChannelModalToggle ? <AddChannelModal handleAddChannelButtonClick={handleAddChannelButtonClick} userHeaders={userHeaders} updateChannelList={updateChannelList} setUpdateChannelList={setUpdateChannelList} /> : <></>}
 
-        <div className="absolute inset-y-0 left-0 z-50 -translate-x-full transform  transition duration-200 ease-in-out mobile:translate-x-0 mobile:relative">
+        <div className={
+            toggleSidebar ? 
+            'absolute inset-y-0 left-0 z-40  transform  transition duration-200 ease-in-out mobile:translate-x-0 mobile:relative'
+            :             'absolute inset-y-0 left-0 z-50 -translate-x-full transform  transition duration-200 ease-in-out mobile:translate-x-0 mobile:relative'
+
+        }>
             
-            <div className='mobile:block tablet:hidden desktop:hidden'>
-                <button onClick={() => setSidebar(false)}>
-                    <XIcon className=' h-8 pl-4'/>
-                </button>
-            </div>
-            
-            {addChannelModalToggle ? <AddChannelModal handleAddChannelButtonClick={handleAddChannelButtonClick} userHeaders={userHeaders} updateChannelList={updateChannelList} setUpdateChannelList={setUpdateChannelList} /> : <></>}
             <div className="bg-secondary channels text-white text-opacity-70 overflow-y-scroll h-screen w-64 z-50 pt-2">
                 <div className="channelsWrap">
 
@@ -120,6 +119,7 @@ const Sidebar = ({ userHeaders }) => {
                 <SidebarDMs userHeaders={userHeaders} channels={channels} updateChatForm={updateChatForm} />
             </div>
         </div>
+        </>
     )
 }
 

@@ -5,7 +5,7 @@ import { ChevronDownIcon, ChevronRightIcon, PlusIcon } from '@heroicons/react/so
 
 const SidebarDMs = ({ userHeaders, channels, updateChatForm }) => {
     const [senderDatas, setSenderDatas] = useState([])
-    const [directMessagesSubMenuToggle, setDirectMessagesSubMenuToggle] = useState(true)
+    const [directMessagesSubMenuToggle, setDirectMessagesSubMenuToggle] = useState(false)
     const [dmEnabledUsers, setDMEnabledUsers] = useState([])
     const [users, setUsers] = useState([])
     let allUserIDs = useRef([])
@@ -213,11 +213,11 @@ const SidebarDMs = ({ userHeaders, channels, updateChatForm }) => {
 
     return (
         <div>
-            <h1 className="w-full text-left font-bold flex items-center hover:text-white p-1 cursor-pointer" onClick={handleDMsDropdown}>
+            <div className="w-full text-left font-bold flex items-center hover:text-white p-1 cursor-pointer" onClick={handleDMsDropdown}>
                 <span className="px-1">
                     {directMessagesSubMenuToggle ? <ChevronDownIcon /> : <ChevronRightIcon />}
                 </span>Direct Messages
-            </h1>
+            </div>
             {directMessagesSubMenuToggle ? senderDatas &&
                 <>
                     {senderDatas.map(senderData => {

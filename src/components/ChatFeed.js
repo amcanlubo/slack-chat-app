@@ -13,8 +13,11 @@ const ChatFeed = () => {
 
    let location = useLocation()
    let userHeaders = location.state
-   
-  
+   const [toggleSidebar, setToggleSidebar] = useState(false)
+
+   const sidebarToggle = () => {
+      setToggleSidebar(!toggleSidebar)
+   }
 
    if (!userHeaders) {
       return <Redirect to="/" />
@@ -24,10 +27,10 @@ const ChatFeed = () => {
    return (
       <>
          <div className='flex'>
-         <Sidebar userHeaders={userHeaders} />
-            <div className="flex flex-col w-full">     
+         <Sidebar userHeaders={userHeaders} toggleSidebar={toggleSidebar} sidebarToggle={sidebarToggle}/>
+            <div className="flex flex-col h-screen w-full">     
                <TopNav userHeaders={userHeaders} />
-               <ChatForm userHeaders={userHeaders} />
+               <ChatForm userHeaders={userHeaders} toggleSidebar={toggleSidebar} sidebarToggle={sidebarToggle}/>
             </div>
          </div>
       </>

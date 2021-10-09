@@ -54,14 +54,14 @@ const Homepage = () => {
     }
 
     return (
-        <div className="flex justify-between container m-auto h-screen">
+        <div className="flex flex-col-reverse mobile:flex-row justify-between m-auto mobile:w-full">
             
-            <div className="p-10 flex flex-col justify-around  items-center content-center w-6/12 bg-white">                
+            <div className="p-10 flex flex-col mobile:h-screen w-full justify-around  items-center content-center mobile:w-6/12 bg-white">                
                 <img src={BT21} alt='illustration' className='h-3/4'/>           
             </div>
             
             <div className="flex-grow flex bg-primary justify-center items-center content-center">
-                <div className='text-secondary flex flex-col justify-center items-center content-center rounded-xl bg-white roundedx p-10'>
+                <div className='text-secondary h-screen flex flex-col justify-center items-center content-center rounded-xl bg-primary rounded p-10'>
                     <img src={logo} alt='logo' className='h-80'/>
                     <button onClick={() => setShowLoginModal(true)}
                     className="bg-secondary px-5 py-3 w-40 text-primary transition ease-in-out duration-150

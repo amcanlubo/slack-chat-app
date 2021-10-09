@@ -69,10 +69,10 @@ function Signup({setshowSignupModal}) {
 
 
     return (
-        <div className="z-50 container w-full max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <form className="bg-white shadow-md rounded-lg px-8 pt-8 pb-8 mb-4 font-Lato bg-primary" onSubmit={handleSignup}>
+        <div className="z-50 container w-full  max-w-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <form className="bg-white shadow-md mobile:h-auto h-screen rounded-lg px-8 pt-8 pb-8 mb-4 font-Lato bg-primary" onSubmit={handleSignup}>
                 
-                <div className='relative bottom-5 right-2 w-full flex justify-between items-center content-center'>
+                <div className='relative bottom-5 right-2 w-full mobile:pt-0 pt-12 flex justify-between items-center content-center'>
 
                     <img src={chimmy } alt='chimchim' className='h-28' />  
                     <h1 className="text-secondary desktop:text-2xl mobile:text-xs font-bold mr-4" >CREATE AN ACCOUNT</h1>   
