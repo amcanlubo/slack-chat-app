@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
-import UserSearchBar from './UserSearchBar'
 import { XIcon } from '@heroicons/react/outline'
 import Select from 'react-select';
 import { toast } from 'react-toastify';
@@ -9,7 +8,7 @@ import { toast } from 'react-toastify';
 //Modal
 import { UserGroupIcon } from '@heroicons/react/solid'
 
-const RightSideNav = ({ userHeaders }) => {
+const Members = ({ userHeaders }) => {
   // console.log(userHeaders)
 
   const [state, dispatch] = useContext(Context);
@@ -177,6 +176,5 @@ const RightSideNav = ({ userHeaders }) => {
   )
 }
 
-export default RightSideNav
-
+export default Members
 

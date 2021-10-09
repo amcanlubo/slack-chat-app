@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { Context } from './Store';
 import axios from 'axios'
-import RightSideNav from './RightSideNav';
+import Members from './Members';
 import { UserCircleIcon } from '@heroicons/react/solid'
 import ScrollToBottom from './ScrollToBottom';
 import Select from 'react-select';
@@ -153,7 +153,7 @@ const ChatForm = ({ userHeaders, sidebarToggle, toggleSidebar }) => {
 
         <div className="flex h-full overflow-auto flex-col">
             <div class="z-10 bg-yellow-300 text-white sticky top-0 flex items-center justify-between mobile:flex-row-reverse">
-                {!state.ChatInfo.receiverClass ? <></> : <RightSideNav userHeaders={userHeaders} />}
+                {!state.ChatInfo.receiverClass ? <></> : <Members userHeaders={userHeaders} />}
 
 
 
